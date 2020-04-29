@@ -27,54 +27,47 @@ namespace GHApi.Bots
             // Figure out what the user wants
             string messageText = turnContext.Activity.Text.ToLower();
 
-            // TEST FOR ADAPTIVE CARDS --------------------------------------------------------------------------------------------------------------
-            if (messageText.Contains("adaptive"))
-            {
-                AdaptiveCard card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0));
-                string templateJson = @"
-                {
+            //// TEST FOR ADAPTIVE CARDS --------------------------------------------------------------------------------------------------------------
+            //if (messageText.Contains("adaptive"))
+            //{
+            //    AdaptiveCard card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0));
+            //    string templateJson = @"
+            //    {
+
+            //    }";
+
+            //    // Create it from JSON
+            //    //card.
 
 
+            //    //// Create it in code.
+            //    //card.Body.Add(new AdaptiveTextBlock()
+            //    //{
+            //    //    Text = "Hello",
+            //    //    Size = AdaptiveTextSize.ExtraLarge
+            //    //});
 
+            //    //card.Body.Add(new AdaptiveImage()
+            //    //{
+            //    //    Url = new Uri("http://adaptivecards.io/content/cats/1.png")
+            //    //});
 
+            //    Attachment attachment = new Attachment()
+            //    {
+            //        ContentType = AdaptiveCard.ContentType,
+            //        Content = card
+            //    };
 
-                }";
+            //    Activity a = (Activity)MessageFactory.Text(card.ToJson());
+            //    a.Attachments.Add(attachment);
+            //    a.AttachmentLayout = "list";
 
-                // Create it from JSON
-                //card.
+            //    await turnContext.SendActivityAsync(a, cancellationToken);
 
+            //    return;
 
-                //// Create it in code.
-                //card.Body.Add(new AdaptiveTextBlock()
-                //{
-                //    Text = "Hello",
-                //    Size = AdaptiveTextSize.ExtraLarge
-                //});
-
-                //card.Body.Add(new AdaptiveImage()
-                //{
-                //    Url = new Uri("http://adaptivecards.io/content/cats/1.png")
-                //});
-
-                Attachment attachment = new Attachment()
-                {
-                    ContentType = AdaptiveCard.ContentType,
-                    Content = card
-                };
-
-                Activity a = (Activity)MessageFactory.Text(card.ToJson());
-                a.Attachments.Add(attachment);
-                a.AttachmentLayout = "list";
-
-                await turnContext.SendActivityAsync(a, cancellationToken);
-
-                return;
-
-            }
-            // --------------------------------------------------------------------------------------------------------------------------------------
-
-
-
+            //}
+            //// --------------------------------------------------------------------------------------------------------------------------------------
 
             // Look for the word help
             if (messageText.Contains("help"))
