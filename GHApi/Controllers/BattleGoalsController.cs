@@ -7,6 +7,7 @@ using GHApi.Models;
 
 namespace GHApi.Controllers
 {
+    [Produces("application/json")]
     [Route("gh/[controller]")]
     [ApiController]
     public class BattleGoalsController : ControllerBase
@@ -17,6 +18,14 @@ namespace GHApi.Controllers
         {
             db = context;
         }
+
+        /// <summary>
+        /// Gets all Battle Goals available.
+        /// </summary>
+        /// <remarks>
+        /// Inclusive of Satire's Extended Battle Goals.
+        /// </remarks>
+        /// <returns></returns>
 
         // GET: api/BattleGoals
         [HttpGet]
@@ -37,6 +46,18 @@ namespace GHApi.Controllers
             return await battleGoals.ToListAsync();
         }
 
+        /// <summary>
+        /// Gets a specific Battle Goal based on number/identifier.
+        /// </summary>
+        /// <remarks>
+        /// Includes all Battle Goals inclusive of some third party battle goals.
+        ///     For base game, the format is: 0 (the number with no leading zeroes)
+        ///     For Satire's Extended Battle Goals, the format is: SE-000 (the number *does* have preceding zeroes with three places represented)
+        /// </remarks>
+        /// <param name="cardNumber"></param>
+        /// <returns>A list of Battle Goals.</returns>
+        /// <response code = "200">Returns the requested Battle Goal.</response>
+        /// <response code = "404">Battle Goal wasn't found.</response>
         // GET: api/BattleGoals/5
         [HttpGet("{cardNumber}")]
         public async Task<ActionResult<BattleGoalDTO>> GetBattleGoal(string cardNumber)

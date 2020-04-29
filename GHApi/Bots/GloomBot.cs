@@ -1,9 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-//
-// Generated with Bot Builder V4 SDK Template for Visual Studio EchoBot v4.6.2
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
@@ -14,6 +9,7 @@ using System;
 using Microsoft.Bot.Connector.Authentication;
 using GHApi.Models;
 using Microsoft.EntityFrameworkCore;
+using AdaptiveCards;
 
 namespace GHApi.Bots
 {
@@ -27,8 +23,58 @@ namespace GHApi.Bots
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
+
             // Figure out what the user wants
             string messageText = turnContext.Activity.Text.ToLower();
+
+            // TEST FOR ADAPTIVE CARDS --------------------------------------------------------------------------------------------------------------
+            if (messageText.Contains("adaptive"))
+            {
+                AdaptiveCard card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0));
+                string templateJson = @"
+                {
+
+
+
+
+
+                }";
+
+                // Create it from JSON
+                //card.
+
+
+                //// Create it in code.
+                //card.Body.Add(new AdaptiveTextBlock()
+                //{
+                //    Text = "Hello",
+                //    Size = AdaptiveTextSize.ExtraLarge
+                //});
+
+                //card.Body.Add(new AdaptiveImage()
+                //{
+                //    Url = new Uri("http://adaptivecards.io/content/cats/1.png")
+                //});
+
+                Attachment attachment = new Attachment()
+                {
+                    ContentType = AdaptiveCard.ContentType,
+                    Content = card
+                };
+
+                Activity a = (Activity)MessageFactory.Text(card.ToJson());
+                a.Attachments.Add(attachment);
+                a.AttachmentLayout = "list";
+
+                await turnContext.SendActivityAsync(a, cancellationToken);
+
+                return;
+
+            }
+            // --------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
             // Look for the word help
             if (messageText.Contains("help"))
