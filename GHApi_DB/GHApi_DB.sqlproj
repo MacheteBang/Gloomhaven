@@ -170,4 +170,7 @@
   <ItemGroup>
     <PostDeploy Include="Data\Script.PostDeployment.CityEventCards.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="EventCardLoad.xlsx" />
+  </ItemGroup>
 </Project>
