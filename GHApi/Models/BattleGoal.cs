@@ -2,7 +2,6 @@
 
 namespace GHApi.Models
 {
-
     public class BattleGoal
     {
         [Key]

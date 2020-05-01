@@ -7,6 +7,7 @@ using GHApi.Models;
 
 namespace GHApi.Controllers
 {
+    [Produces("application/json")]
     [Route("gh/[controller]")]
     [ApiController]
     public class EventCardsController : ControllerBase
@@ -49,7 +50,9 @@ namespace GHApi.Controllers
             });
         }
 
-        // GET: gh/eventcards
+        /// <summary>
+        /// Gets a list of event cards.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventCardDTO>>> GetEventCards()
         {
@@ -64,7 +67,14 @@ namespace GHApi.Controllers
             return eventCards;
         }
 
-        // GET: gh/eventcards/city/5
+        /// <summary>
+        /// Gets a specific event card based upon it's type and number.
+        /// </summary>
+        /// <param name="eventType">Can either be City or Road.</param>
+        /// <param name="cardNumber">Integer number of the card.</param>
+        /// <returns>The requested event card.</returns>
+        /// <response code = "200">Returns the requested event card.</response>
+        /// <response code = "404">Event card wasn't found.</response>
         [HttpGet("{eventType}/{cardNumber}")]
         public async Task<ActionResult<EventCardDTO>> GetEventCard(string eventType, string cardNumber)
         {

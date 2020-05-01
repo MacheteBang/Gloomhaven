@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GHApi.Models
+﻿namespace GHApi.Models
 {
-    public class Character
+    public class CharacterDTO
     {
-        [Key]
-        public long CharacterId { get; set; }
         public string CharacterNumber { get; set; }
         public string FullName { get; set; }
         public string Race { get; set; }
@@ -14,6 +10,5 @@ namespace GHApi.Models
         public bool IsSpoiler { get; set; }
         public bool IsOfficial { get; set; }
         public bool IsExtended { get; set; }
-
     }
 }

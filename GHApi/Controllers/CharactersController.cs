@@ -7,101 +7,82 @@ using GHApi.Models;
 
 namespace GHApi.Controllers
 {
+    [Produces("application/json")]
     [Route("gh/[controller]")]
     [ApiController]
     public class CharactersController : ControllerBase
     {
-        private readonly GHContext _context;
+        private readonly GHContext db;
 
         public CharactersController(GHContext context)
         {
-            _context = context;
+            db = context;
         }
 
-        // GET: api/Characters
+        /// <summary>
+        /// Gets a list of characters.
+        /// </summary>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharacter()
+        public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetCharacters()
         {
-            return await _context.Characters.ToListAsync();
+            var characters = from b in db.Characters
+                             select new CharacterDTO()
+                             {
+                                 CharacterNumber = b.CharacterNumber,
+                                 FullName = b.FullName,
+                                 Race = b.Race,
+                                 Class = b.Class,
+                                 SpoilerFreeName = b.SpoilerFreeName,
+                                 IsSpoiler = b.IsSpoiler,
+                                 IsOfficial = b.IsOfficial,
+                                 IsExtended = b.IsExtended
+                             };
+
+            return await characters.ToListAsync();
         }
 
-        // GET: api/Characters/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> GetCharacter(long id)
+        /// <summary>
+        /// Gets a specific character based upon it's "number".
+        /// </summary>
+        /// <param name="characterNumber"></param>
+        /// <returns>The requested character.</returns>
+        /// <response code = "200">Returns the requested character.</response>
+        /// <response code = "404">Character wasn't found.</response>
+        [HttpGet("{characterNumber}")]
+        public async Task<ActionResult<CharacterDTO>> GetCharacter(string characterNumber)
         {
-            var character = await _context.Characters.FindAsync(id);
 
-            if (character == null)
+            // characterNumber should be a two character number formatted with a leading 0.
+            // Reformat as necessary to facilitate the join correctly then continue on if
+            // it is truly an integer.
+            if (int.TryParse(characterNumber, out int i))
+            {
+                // Success! It's an integer.  Now reformat it to include a leading zero.
+                characterNumber = i.ToString("D2");
+
+                var character = await db.Characters.Select(b =>
+                                 new CharacterDTO()
+                                 {
+                                     CharacterNumber = b.CharacterNumber,
+                                     FullName = b.FullName,
+                                     Race = b.Race,
+                                     Class = b.Class,
+                                     SpoilerFreeName = b.SpoilerFreeName,
+                                     IsSpoiler = b.IsSpoiler,
+                                     IsOfficial = b.IsOfficial,
+                                     IsExtended = b.IsExtended
+                                 }).SingleOrDefaultAsync(b => b.CharacterNumber == characterNumber);
+
+                if (character == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(character);
+            } else
             {
                 return NotFound();
             }
-
-            return character;
-        }
-
-        //// PUT: api/Characters/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutCharacter(long id, Character character)
-        //{
-        //    if (id != character.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(character).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!CharacterExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Characters
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPost]
-        //public async Task<ActionResult<Character>> PostCharacter(Character character)
-        //{
-        //    _context.Character.Add(character);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
-        //}
-
-        //// DELETE: api/Characters/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Character>> DeleteCharacter(long id)
-        //{
-        //    var character = await _context.Character.FindAsync(id);
-        //    if (character == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Character.Remove(character);
-        //    await _context.SaveChangesAsync();
-
-        //    return character;
-        //}
-
-        private bool CharacterExists(long id)
-        {
-            return _context.Characters.Any(e => e.CharacterId == id);
         }
     }
 }

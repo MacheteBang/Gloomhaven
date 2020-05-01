@@ -56,7 +56,7 @@ namespace GHApi
                 {
                     Title = "Gloom API",
                     Version = "v1",
-                    Description = "API to access organized information about Gloomhaven",
+                    Description = "API to access organized information about the Gloomhaven board game.",
                     Contact = new OpenApiContact
                     {
                         Name = "Jonathan Gregorsky",

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [api].[EventCardRequirements] (
     [EventCardRequirementId] BIGINT        IDENTITY (1, 1) NOT NULL,
     [EventCardResultId]      BIGINT        NOT NULL,
-    [RequirementType]        NVARCHAR (8)  NOT NULL,
+    [RequirementType]        NVARCHAR (16)  NOT NULL,
     [RequirementDescription] NVARCHAR (32) NULL,
     [CharacterId]            BIGINT        NULL,
     CONSTRAINT [EventCardRequirementId] PRIMARY KEY CLUSTERED ([EventCardRequirementId] ASC),

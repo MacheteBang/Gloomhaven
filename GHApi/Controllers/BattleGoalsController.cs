@@ -26,7 +26,6 @@ namespace GHApi.Controllers
         /// Inclusive of Satire's Extended Battle Goals.
         /// </remarks>
         /// <returns></returns>
-
         // GET: api/BattleGoals
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BattleGoalDTO>>> GetBattleGoals()
@@ -80,71 +79,6 @@ namespace GHApi.Controllers
             }
 
             return Ok(battleGoal);
-        }
-
-        //// PUT: api/BattleGoals/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutBattleGoal(long id, BattleGoal battleGoal)
-        //{
-        //    if (id != battleGoal.BattleGoalId)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Entry(battleGoal).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!BattleGoalExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/BattleGoals
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPost]
-        //public async Task<ActionResult<BattleGoal>> PostBattleGoal(BattleGoal battleGoal)
-        //{
-        //    db.BattleGoals.Add(battleGoal);
-        //    await db.SaveChangesAsync();
-
-        //    return CreatedAtAction(nameof(GetBattleGoal), new { id = battleGoal.BattleGoalId }, battleGoal);
-        //}
-
-        //// DELETE: api/BattleGoals/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<BattleGoal>> DeleteBattleGoal(long id)
-        //{
-        //    var battleGoal = await db.BattleGoals.FindAsync(id);
-        //    if (battleGoal == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.BattleGoals.Remove(battleGoal);
-        //    await db.SaveChangesAsync();
-
-        //    return battleGoal;
-        //}
-
-        private bool BattleGoalExists(long id)
-        {
-            return db.BattleGoals.Any(e => e.BattleGoalId == id);
         }
     }
 }
