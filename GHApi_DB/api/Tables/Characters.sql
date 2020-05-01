@@ -6,6 +6,8 @@
     [Class]           NVARCHAR (32) NOT NULL,
     [SpoilerFreeName] NVARCHAR (32) NOT NULL,
     [IsSpoiler]       BIT           NOT NULL,
+    [IsOfficial] BIT NOT NULL, 
+    [IsExtended] BIT NOT NULL, 
     CONSTRAINT [PK_Characters] PRIMARY KEY CLUSTERED ([CharacterId] ASC)
 );
 

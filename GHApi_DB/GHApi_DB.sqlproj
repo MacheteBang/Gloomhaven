@@ -121,11 +121,8 @@
     <Folder Include="Properties" />
     <Folder Include="api\" />
     <Folder Include="api\Tables\" />
-    <Folder Include="dbo\" />
-    <Folder Include="dbo\Tables\" />
     <Folder Include="Security\" />
     <Folder Include="api\Procedures" />
-    <Folder Include="Data" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="api\Tables\EventCardRewards.sql">
@@ -141,10 +138,6 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="api\Tables\EventCards.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="dbo\Tables\EventCardLoad.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
@@ -166,11 +159,10 @@
     <Build Include="Security\api.sql" />
     <Build Include="Security\Permissions.sql" />
     <Build Include="api\Procedures\LoadEventCard.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Data\Script.PostDeployment.CityEventCards.sql" />
+    <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EventCardLoad.xlsx" />
+    <None Include="GHApi_DB.publish.xml" />
   </ItemGroup>
 </Project>
