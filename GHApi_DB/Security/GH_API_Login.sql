@@ -1,0 +1,1 @@
+﻿CREATE LOGIN [GH_API] WITH PASSWORD = N'!Gloom_ReadWrite69!';

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [api].[BattleGoals] (
     [BattleGoalId]    BIGINT         IDENTITY (1, 1) NOT NULL,
-    [CardNumber]      VARCHAR (16)   NULL,
+    [CardNumber]      VARCHAR (16)   NOT NULL,
     [GoalName]        NVARCHAR (50)  NOT NULL,
     [GoalDescription] NVARCHAR (128) NOT NULL,
     [Reward]          INT            NOT NULL,

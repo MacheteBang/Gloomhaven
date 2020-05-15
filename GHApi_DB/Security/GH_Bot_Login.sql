@@ -1,0 +1,1 @@
+﻿CREATE LOGIN [GH_Bot] WITH PASSWORD = '!GloomBot_RW69!'

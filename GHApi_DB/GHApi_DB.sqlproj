@@ -123,6 +123,8 @@
     <Folder Include="api\Tables\" />
     <Folder Include="Security\" />
     <Folder Include="api\Procedures" />
+    <Folder Include="bot" />
+    <Folder Include="bot\Tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="api\Tables\EventCardRewards.sql">
@@ -153,13 +155,17 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="Security\GH_API.sql" />
-    <Build Include="Security\GH_API_1.sql" />
+    <Build Include="Security\GH_API_User.sql" />
+    <Build Include="Security\GH_API_Login.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="Security\api.sql" />
     <Build Include="Security\Permissions.sql" />
     <Build Include="api\Procedures\LoadEventCard.sql" />
     <PostDeploy Include="Script.PostDeployment.sql" />
+    <Build Include="Security\bot.sql" />
+    <Build Include="bot\Tables\EventCardInclusions.sql" />
+    <Build Include="Security\GH_Bot_Login.sql" />
+    <Build Include="Security\GH_Bot_User.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EventCardLoad.xlsx" />
