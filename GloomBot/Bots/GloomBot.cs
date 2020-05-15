@@ -7,11 +7,9 @@ using Microsoft.Bot.Schema.Teams;
 using Microsoft.Bot.Connector;
 using System;
 using Microsoft.Bot.Connector.Authentication;
-using GHApi.Models;
-using Microsoft.EntityFrameworkCore;
-using AdaptiveCards;
+using GloomBot.Models;
 
-namespace GHApi.Bots
+namespace GloomBot.Bots
 {
     public class GloomBot : ActivityHandler
     {
@@ -23,51 +21,8 @@ namespace GHApi.Bots
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
-
             // Figure out what the user wants
             string messageText = turnContext.Activity.Text.ToLower();
-
-            //// TEST FOR ADAPTIVE CARDS --------------------------------------------------------------------------------------------------------------
-            //if (messageText.Contains("adaptive"))
-            //{
-            //    AdaptiveCard card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0));
-            //    string templateJson = @"
-            //    {
-
-            //    }";
-
-            //    // Create it from JSON
-            //    //card.
-
-
-            //    //// Create it in code.
-            //    //card.Body.Add(new AdaptiveTextBlock()
-            //    //{
-            //    //    Text = "Hello",
-            //    //    Size = AdaptiveTextSize.ExtraLarge
-            //    //});
-
-            //    //card.Body.Add(new AdaptiveImage()
-            //    //{
-            //    //    Url = new Uri("http://adaptivecards.io/content/cats/1.png")
-            //    //});
-
-            //    Attachment attachment = new Attachment()
-            //    {
-            //        ContentType = AdaptiveCard.ContentType,
-            //        Content = card
-            //    };
-
-            //    Activity a = (Activity)MessageFactory.Text(card.ToJson());
-            //    a.Attachments.Add(attachment);
-            //    a.AttachmentLayout = "list";
-
-            //    await turnContext.SendActivityAsync(a, cancellationToken);
-
-            //    return;
-
-            //}
-            //// --------------------------------------------------------------------------------------------------------------------------------------
 
             // Look for the word help
             if (messageText.Contains("help"))
@@ -106,8 +61,8 @@ namespace GHApi.Bots
                 TeamsChannelData channelData = new TeamsChannelData();
                 channelData.Tenant = tenantInfo;
 
-                List<BattleGoal> battleGoals = await GetBattleGoals();
-                battleGoals = Utility.ShuffleList<BattleGoal>(battleGoals);
+                List<BattleGoal> battleGoals = await GHApi.GetBattleGoals();
+                battleGoals = Utility.ShuffleList(battleGoals);
 
                 // Send them all a message
                 int j = 0;
@@ -119,9 +74,7 @@ namespace GHApi.Bots
                 
             } else
             {
-                Attachment meme = new Attachment("image/jpeg", "https://mmmpizzastorage.blob.core.windows.net/mmmpizzablob/abe_lincoln.jpg");
-                Activity unknownResponse = (Activity)MessageFactory.Attachment(meme);
-                unknownResponse.Text = "I have confusion and cannot help thee with that!  Ask for mine 'help' and I will explain what I can do for thee!";
+                Activity unknownResponse = MessageFactory.Text("I have confusion and cannot help thee with that!  Ask for mine 'help' and I will explain what I can do for thee!");
 
                 await turnContext.SendActivityAsync(unknownResponse, cancellationToken);
             }
@@ -170,16 +123,6 @@ namespace GHApi.Bots
                     await turnContext.SendActivityAsync(MessageFactory.Text(welcomeText, welcomeText), cancellationToken);
                 }
             }
-        }
-
-        private async Task<List<BattleGoal>> GetBattleGoals()
-        {
-            var o = new DbContextOptionsBuilder<GHContext>();
-            o.UseInMemoryDatabase("GH");
-           
-            GHContext context = new GHContext(o.Options);
-
-            return await context.BattleGoals.ToListAsync<BattleGoal>();
         }
     }
 

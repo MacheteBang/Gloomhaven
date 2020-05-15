@@ -12,8 +12,12 @@ namespace GHApi.Controllers
     [ApiController]
     public class CharactersController : ControllerBase
     {
+        // Private Variables
+        // -----------------
         private readonly GHContext db;
 
+        // Constructors
+        // ------------
         public CharactersController(GHContext context)
         {
             db = context;
@@ -25,6 +29,7 @@ namespace GHApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetCharacters()
         {
+            // Get all chacters in the database and return them as a DTO (hiding DB keys)
             var characters = from b in db.Characters
                              select new CharacterDTO()
                              {
