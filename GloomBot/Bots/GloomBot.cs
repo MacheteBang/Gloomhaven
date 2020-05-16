@@ -7,7 +7,10 @@ using Microsoft.Bot.Schema.Teams;
 using Microsoft.Bot.Connector;
 using System;
 using Microsoft.Bot.Connector.Authentication;
-using GloomBot.Models;
+using GloomBot.Models.GHApi;
+using GloomBot.Models.Bot;
+using GloomBot.Models.GloomhavenDB;
+using System.Text.RegularExpressions;
 
 namespace GloomBot.Bots
 {
@@ -23,7 +26,9 @@ namespace GloomBot.Bots
         // Assemble the help string
         string helpText = "Herest are the commands you can speak unto me!"
             + "\n* Sayest 'help' to divine mine internal knowledge"
-            + "\n* Sayest 'battle goal' to bestow Battle Goals for thy comrades in battle (mention @user)";
+            + "\n* Sayest 'battle goal' to bestow Battle Goals for thy comrades in battle (mention @user)"
+            + "\n* Sayest '(city or road) (number)' and I will show you a City or Road Event card"
+            + "\n* Sayest '(city or road) (number) option (A or B) and I will give you the result of the requested City event card";
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
@@ -42,6 +47,61 @@ namespace GloomBot.Bots
             // Look for help
             {
                 responseActivity = MessageFactory.Text($"By Merlin's Beard!\n{helpText}");
+            }
+            else if (messageText.Contains("city") || messageText.Contains("road"))
+            {
+                // Get the type
+                string cardType = messageText.Contains("city") ? cardType = "city" : cardType = "road";
+
+                // Find the number
+                string cardNumber = Regex.Match(messageText, @"\d+").Value;
+
+                if (cardNumber == "")
+                {
+                    responseActivity = MessageFactory.Text($"Looking for a {cardType} event, eh? I need to know the number!");
+                } else
+                {
+
+                    EventCard eventCard = await GloomhavenDB.GetEventCard(cardType, cardNumber);
+
+                    if (messageText.Contains("option"))
+                    {
+                        if (messageText.Contains(" a"))
+                        {
+                            Attachment eventCardOptionImage = new Attachment
+                            {
+                                Name = $"{eventCard.Type} Card {eventCard.Number} - Option A",
+                                ContentType = "image/png",
+                                ContentUrl = $"https://gloomhavendb.com{eventCard.OptionA.ImageUrl}"
+                            };
+
+                            responseActivity = (Activity)MessageFactory.Attachment(eventCardOptionImage);
+                        } else if (messageText.Contains(" b"))
+                        {
+                            Attachment eventCardOptionImage = new Attachment
+                            {
+                                Name = $"{eventCard.Type} Card {eventCard.Number} - Option B",
+                                ContentType = "image/png",
+                                ContentUrl = $"https://gloomhavendb.com{eventCard.OptionB.ImageUrl}"
+                            };
+
+                            responseActivity = (Activity)MessageFactory.Attachment(eventCardOptionImage);
+                        } else
+                        {
+                            responseActivity = MessageFactory.Text("You're asking for an result, but you didn't tell me which option.");
+                        }
+                    } else
+                    {
+                        Attachment eventCardImage = new Attachment
+                        {
+                            Name = $"{eventCard.Type} Card {eventCard.Number}",
+                            ContentType = "image/png",
+                            ContentUrl = $"https://gloomhavendb.com{eventCard.ImageUrl}"
+                        };
+                        responseActivity = (Activity)MessageFactory.Attachment(eventCardImage);
+                    }
+                }
+
             }
             else if (messageText.Contains("battlegoal") || messageText.Contains("battle goal"))
             // Look for battle goals

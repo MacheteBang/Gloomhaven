@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GloomBot.Models
+namespace GloomBot.Models.GHApi
 {
     public class BattleGoal
     {

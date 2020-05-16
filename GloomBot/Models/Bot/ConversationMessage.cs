@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GloomBot.Models
+namespace GloomBot.Models.Bot
 {
     public class ConversationMessage
     {

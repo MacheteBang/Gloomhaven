@@ -1,4 +1,4 @@
-﻿using GloomBot.Models;
+﻿using GloomBot.Models.GHApi;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;

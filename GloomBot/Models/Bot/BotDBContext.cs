@@ -2,7 +2,7 @@
 using Microsoft.Bot.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace GloomBot.Models
+namespace GloomBot.Models.Bot
 {
     public class BotDBContext : DbContext
     {

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using GloomBot.Bots;
-using GloomBot.Models;
+using GloomBot.Models.Bot;
 using Microsoft.EntityFrameworkCore;
 
 namespace GloomBot
@@ -17,7 +17,7 @@ namespace GloomBot
         public static string BotAppId { get; private set; }
         public static string BotAppSecret { get; private set; }
         public static string ApiUrl_BattleGoals { get; private set; }
-
+        public static string GloomHavenDBUrl_Events { get; private set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,6 +50,7 @@ namespace GloomBot
             BotAppId = Configuration["MicrosoftAppId"];
             BotAppSecret = Configuration["MicrosoftAppPassword"];
             ApiUrl_BattleGoals = Configuration["GHApiUrl_BattleGoals"];
+            GloomHavenDBUrl_Events = Configuration["GloomhavenDBUrl_EventCards"];
 
             if (env.IsDevelopment())
             {
