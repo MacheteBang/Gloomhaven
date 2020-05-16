@@ -13,24 +13,41 @@ namespace GloomBot.Bots
 {
     public class GloomBot : ActivityHandler
     {
+        private BotDBContext db;
+
+        public GloomBot (BotDBContext context)
+        {
+            db = context;
+        }
 
         // Assemble the help string
-        String helpText = "Herest are the commands you can speak unto me!"
+        string helpText = "Herest are the commands you can speak unto me!"
             + "\n* Sayest 'help' to divine mine internal knowledge"
             + "\n* Sayest 'battle goal' to bestow Battle Goals for thy comrades in battle (mention @user)";
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
-            // Figure out what the user wants
+
+            //  Add a DB writer upon every message recieved.
+            db.LogMessage((Activity)turnContext.Activity);
+
+            // Declare the response activity.
+            Activity responseActivity;
+
+            // Figure out what the user wants ans assemple a message.
             string messageText = turnContext.Activity.Text.ToLower();
 
-            // Look for the word help
+            
             if (messageText.Contains("help"))
+            // Look for help
             {
-                await turnContext.SendActivityAsync(MessageFactory.Text($"By Merlin's Beard!\n{helpText}"), cancellationToken);
+                responseActivity = MessageFactory.Text($"By Merlin's Beard!\n{helpText}");
             }
             else if (messageText.Contains("battlegoal") || messageText.Contains("battle goal"))
+            // Look for battle goals
             {
+
+                // Now assemble and send them privately to people that were mentioned.
                 // Get a list of people connected to the messages.
                 String connectedNames = "";
                 connectedNames += turnContext.Activity.From.Name;
@@ -47,8 +64,8 @@ namespace GloomBot.Bots
                     }
                 }
 
-                Activity battleGoalResponse = (Activity)MessageFactory.Text($"⚔️ The time is nigh to fight the forces of Gloom!  I shall bestow unto thee two goals for this battle. These warriors shall recieve these visions directly: {connectedNames} ⚔️");
-                await turnContext.SendActivityAsync(battleGoalResponse, cancellationToken);
+                // Response to query.
+                responseActivity = (Activity)MessageFactory.Text($"⚔️ The time is nigh to fight the forces of Gloom!  I shall bestow unto thee two goals for this battle. These warriors shall recieve these visions directly: {connectedNames} ⚔️");
 
                 // Get the activity of the incoming request.
                 IMessageActivity activity = turnContext.Activity;
@@ -71,13 +88,16 @@ namespace GloomBot.Bots
                     SendBattleGoalsMessage(c.Id, channelData, activity.ServiceUrl, cancellationToken, battleGoals[j], battleGoals[j+1]);
                     j += 2;
                 }
-                
-            } else
-            {
-                Activity unknownResponse = MessageFactory.Text("I have confusion and cannot help thee with that!  Ask for mine 'help' and I will explain what I can do for thee!");
-
-                await turnContext.SendActivityAsync(unknownResponse, cancellationToken);
             }
+            else
+            // Everything else.
+            {
+                responseActivity = MessageFactory.Text("I have confusion and cannot help thee with that!  Ask for mine 'help' and I will explain what I can do for thee!");
+            }
+
+            // Send the response to this message.
+            await turnContext.SendActivityAsync(responseActivity, cancellationToken);
+            db.LogMessage(responseActivity);
         }
 
         private async void SendBattleGoalsMessage(string userId, TeamsChannelData channelData, string serviceUrl, CancellationToken cancellationToken, BattleGoal battleGoal1, BattleGoal battleGoal2)
@@ -110,7 +130,7 @@ namespace GloomBot.Bots
             a.Text = "From the darkness, I see two goals for you.  Choose one, and if you complete it, you will grow stronger!";
 
             await connector.Conversations.SendToConversationAsync(response.Id, a, cancellationToken);
-
+            db.LogMessage(a);
         }
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
@@ -120,7 +140,11 @@ namespace GloomBot.Bots
             {
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
-                    await turnContext.SendActivityAsync(MessageFactory.Text(welcomeText, welcomeText), cancellationToken);
+                    Activity response;
+                    response = MessageFactory.Text(welcomeText, welcomeText);
+                    await turnContext.SendActivityAsync(response, cancellationToken);
+                    db.LogMessage(response);
+                    
                 }
             }
         }

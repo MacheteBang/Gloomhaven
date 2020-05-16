@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using GloomBot.Bots;
+using GloomBot.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GloomBot
 {
@@ -26,7 +28,13 @@ namespace GloomBot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
+
+            // Add the database
+            services.AddDbContext<BotDBContext>(opt => opt.UseSqlServer(Configuration["Bot_Database"]));
+            services.AddSingleton<GloomBot.Bots.GloomBot, GloomBot.Bots.GloomBot>();
+
+            
 
             // Create the Bot Framework Adapter with error handling enabled.
             services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();

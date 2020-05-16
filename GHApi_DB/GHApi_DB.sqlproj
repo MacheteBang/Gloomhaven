@@ -156,7 +156,6 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Security\GH_API_User.sql" />
-    <Build Include="Security\GH_API_Login.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="Security\api.sql" />
     <Build Include="Security\Permissions.sql" />
@@ -164,11 +163,14 @@
     <PostDeploy Include="Script.PostDeployment.sql" />
     <Build Include="Security\bot.sql" />
     <Build Include="bot\Tables\EventCardInclusions.sql" />
-    <Build Include="Security\GH_Bot_Login.sql" />
     <Build Include="Security\GH_Bot_User.sql" />
+    <Build Include="bot\Tables\ConversationMessages.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EventCardLoad.xlsx" />
     <None Include="GHApi_DB.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="GHApi_DB.refactorlog" />
   </ItemGroup>
 </Project>
