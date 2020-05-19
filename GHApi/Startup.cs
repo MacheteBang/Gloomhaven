@@ -27,7 +27,7 @@ namespace GHApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddRazorPages();
             services.AddDbContext<GHApiContext>(opt => opt.UseInMemoryDatabase("GHApi"));
 
             // When pushing out nested objects, this ensures the cycle reference is bypassed.
@@ -58,14 +58,13 @@ namespace GHApi
                 c.IncludeXmlComments(xmlPath);
             });
 
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Added to expose images associated with the data.
-            app.UseFileServer();
+            //app.UseFileServer();
 
             if (env.IsDevelopment())
             {
@@ -92,6 +91,7 @@ namespace GHApi
 
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -99,6 +99,7 @@ namespace GHApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
 

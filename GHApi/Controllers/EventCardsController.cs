@@ -10,7 +10,7 @@ using GHApi.Models.Context;
 namespace GHApi.Controllers
 {
     [Produces("application/json")]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EventCardsController : ControllerBase
     {
