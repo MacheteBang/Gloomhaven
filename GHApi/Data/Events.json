@@ -2,7 +2,7 @@
   {
     "type": "City",
     "cardNumber": "1",
-    "situation": "You decide to unwind at the Sleeping Lion, but just as you are starting to relax, a bear of a man crashes into your table, scattering your drinks across the floor.\r\nTowering over him is a massive Inox. \"\"What did you say about my horns?\"\" the Inox shouts.\r\nThe man stands up and brushes shards of glass from his tunic. \"\"I said the sight of them makes me want to vomit!\"\"\r\nThe Inox roars and charges headlong into the man, crashing through more tables in the process. At this, the entire tavern erupts into violence. After all, when a man is deep into his drink, the last thing you want to do is knock that drink over.",
+    "situation": "You decide to unwind at the Sleeping Lion, but just as you are starting to relax, a bear of a man crashes into your table, scattering your drinks across the floor.\nTowering over him is a massive Inox. \"\"What did you say about my horns?\"\" the Inox shouts.\nThe man stands up and brushes shards of glass from his tunic. \"\"I said the sight of them makes me want to vomit!\"\"\nThe Inox roars and charges headlong into the man, crashing through more tables in the process. At this, the entire tavern erupts into violence. After all, when a man is deep into his drink, the last thing you want to do is knock that drink over.",
     "options": [
       {
         "letter": "A",
@@ -44,7 +44,7 @@
   {
     "type": "City",
     "cardNumber": "2",
-    "situation": "As the daylight fades, you find yourselves wandering through a half-crowded market street, browsing wares.\r\n\"\"Hey! Over here!\"\" You turn in the direction of the voice to see a filthy Vermling gesturing from a dark alley. \"\"Yeah, you grim-looking chaps. I have something you might be interested in.\"\"\r\nThe Vermling holds out a piece of metal covered in sludge. \"\"Found this in the sewer. Writing on it I don't understand, but I know it's valuable. You can have it for ten gold!\"\"",
+    "situation": "As the daylight fades, you find yourselves wandering through a half-crowded market street, browsing wares.\n\"\"Hey! Over here!\"\" You turn in the direction of the voice to see a filthy Vermling gesturing from a dark alley. \"\"Yeah, you grim-looking chaps. I have something you might be interested in.\"\"\nThe Vermling holds out a piece of metal covered in sludge. \"\"Found this in the sewer. Writing on it I don't understand, but I know it's valuable. You can have it for ten gold!\"\"",
     "options": [
       {
         "letter": "A",
@@ -105,7 +105,7 @@
   {
     "type": "City",
     "cardNumber": "3",
-    "situation": "As the daylight fades, you find yourselves wandering through a half-crowded market street, browsing wares.\r\n\"\"Hey! Over here!\"\" You turn in the direction a of the voice to see a filthy Vermling gesturing from a dark alley. \"\"Yeah, you grim-looking chaps. I have something you might be interested in.\"\"\r\nThe Vermling holds out a piece of metal covered in sludge. \"\"Found this in the sewer. Writing on it l don't understand, but I know its valuable. You can have it for ten gold!\"\"",
+    "situation": "As the daylight fades, you find yourselves wandering through a half-crowded market street, browsing wares.\n\"\"Hey! Over here!\"\" You turn in the direction a of the voice to see a filthy Vermling gesturing from a dark alley. \"\"Yeah, you grim-looking chaps. I have something you might be interested in.\"\"\nThe Vermling holds out a piece of metal covered in sludge. \"\"Found this in the sewer. Writing on it l don't understand, but I know its valuable. You can have it for ten gold!\"\"",
     "options": [
       {
         "letter": "A",
@@ -169,7 +169,7 @@
   {
     "type": "City",
     "cardNumber": "4",
-    "situation": "Having recently returned from your latest adventure, you are approached by a ratty-looking boy in tears.\r\n\"\"Please, sirs, could you please help me with my cat? He went over there, and I’m afraid.\"\" The boy points a dirty finger at a decrepit, abandoned building. \"\"I don't know what else to do.\"\"",
+    "situation": "Having recently returned from your latest adventure, you are approached by a ratty-looking boy in tears.\n\"\"Please, sirs, could you please help me with my cat? He went over there, and I’m afraid.\"\" The boy points a dirty finger at a decrepit, abandoned building. \"\"I don't know what else to do.\"\"",
     "options": [
       {
         "letter": "A",
@@ -211,7 +211,7 @@
   {
     "type": "City",
     "cardNumber": "5",
-    "situation": "After resting for the evening, you start out your day noticing a great number of prominent, commanding posters around the city.\r\nReading one, you learn that the Sanctuary of the Great Oak is laying down the foundation for a new building on the east side of Gloomhaven. Everyone is encouraged to come and help. This could be an important community event.",
+    "situation": "After resting for the evening, you start out your day noticing a great number of prominent, commanding posters around the city.\nReading one, you learn that the Sanctuary of the Great Oak is laying down the foundation for a new building on the east side of Gloomhaven. Everyone is encouraged to come and help. This could be an important community event.",
     "options": [
       {
         "letter": "A",
@@ -259,7 +259,7 @@
   {
     "type": "City",
     "cardNumber": "6",
-    "situation": "You awake in the middle of the night to the sound of alarms ringing in the west. You recognize them as the warning clangs of an attack on the wall.\r\nAny force bold enough to assault the defenses of Gloomhaven can't be good. Fore a moment you are grateful for the prolific number of guards defending the city. But still, there is always the possibility that the guards may not be enough.",
+    "situation": "You awake in the middle of the night to the sound of alarms ringing in the west. You recognize them as the warning clangs of an attack on the wall.\nAny force bold enough to assault the defenses of Gloomhaven can't be good. Fore a moment you are grateful for the prolific number of guards defending the city. But still, there is always the possibility that the guards may not be enough.",
     "options": [
       {
         "letter": "A",
@@ -304,7 +304,7 @@
   {
     "type": "City",
     "cardNumber": "7",
-    "situation": "Occasionally your dealings in town lead you past the building docks. All conversation gets drowned out by the constant din of loading and unloading cargo and crew. This makes it all the more surprising when you hear a voice above the noise directed straight at you.\r\n\"\"Oi! You with the hard looks and big arms! I desperately need some help o'er here! Spare a few minutes to help make sure I get out of port on time? Otherwise I'll be stuck here until tomorrow!\"\"",
+    "situation": "Occasionally your dealings in town lead you past the building docks. All conversation gets drowned out by the constant din of loading and unloading cargo and crew. This makes it all the more surprising when you hear a voice above the noise directed straight at you.\n\"\"Oi! You with the hard looks and big arms! I desperately need some help o'er here! Spare a few minutes to help make sure I get out of port on time? Otherwise I'll be stuck here until tomorrow!\"\"",
     "options": [
       {
         "letter": "A",
@@ -352,7 +352,7 @@
   {
     "type": "City",
     "cardNumber": "8",
-    "situation": "On a trip to the New Market, you see a curious sea chart prominently displayed in a Valrath merchant's stall.\r\n\"\"Ah, I see this interests you!\"\" he says while holding it up, taking great care not to damage it. \"\"I've been told this map will lead you to a location of untold riches! Wondrous beyond anything you have seen before!\"\"\r\nThe Valrath gestures grandly with his free hand and his smile grows wide. \"\"How can you say no to this? Just make me an offer.\"\"",
+    "situation": "On a trip to the New Market, you see a curious sea chart prominently displayed in a Valrath merchant's stall.\n\"\"Ah, I see this interests you!\"\" he says while holding it up, taking great care not to damage it. \"\"I've been told this map will lead you to a location of untold riches! Wondrous beyond anything you have seen before!\"\"\nThe Valrath gestures grandly with his free hand and his smile grows wide. \"\"How can you say no to this? Just make me an offer.\"\"",
     "options": [
       {
         "letter": "A",
@@ -416,7 +416,7 @@
   {
     "type": "City",
     "cardNumber": "25",
-    "situation": "On a trip to the Coin District, you catch sight of an old, wiry Valrath carrying a large, intricate vase out of his front door.\r\nAs you get closer, the Valrath begins to struggle with the vase, sweat pouring from his brow. Under the strain, the Valrath loses his balance, and the fragile vase topples downward as he yells a string of curses.",
+    "situation": "On a trip to the Coin District, you catch sight of an old, wiry Valrath carrying a large, intricate vase out of his front door.\nAs you get closer, the Valrath begins to struggle with the vase, sweat pouring from his brow. Under the strain, the Valrath loses his balance, and the fragile vase topples downward as he yells a string of curses.",
     "options": [
       {
         "letter": "A",
