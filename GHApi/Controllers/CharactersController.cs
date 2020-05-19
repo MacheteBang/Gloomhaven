@@ -41,13 +41,21 @@ namespace GHApi.Controllers
                              select new Character()
                              {
                                  CharacterNumber = b.CharacterNumber,
+                                 SpoilerFreeName = b.SpoilerFreeName,
                                  FullName = b.FullName,
                                  Race = b.Race,
+                                 RaceDescription = b.RaceDescription,
                                  Class = b.Class,
-                                 SpoilerFreeName = b.SpoilerFreeName,
+                                 ClassDescription = b.ClassDescription,
+                                 HexColor = b.HexColor,
+                                 PortraitHigh = b.PortraitHigh,
+                                 PortraitLow = b.PortraitLow,
+                                 IconHigh = b.IconHigh,
+                                 IconLow = b.IconLow,
                                  IsSpoiler = b.IsSpoiler,
                                  IsOfficial = b.IsOfficial,
-                                 IsExtended = b.IsExtended
+                                 IsExtended = b.IsExtended,
+                                 Source = b.Source
                              };
 
             return Ok(await characters.ToListAsync());
@@ -79,13 +87,21 @@ namespace GHApi.Controllers
                                  new Character()
                                  {
                                      CharacterNumber = b.CharacterNumber,
+                                     SpoilerFreeName = b.SpoilerFreeName,
                                      FullName = b.FullName,
                                      Race = b.Race,
+                                     RaceDescription = b.RaceDescription,
                                      Class = b.Class,
-                                     SpoilerFreeName = b.SpoilerFreeName,
+                                     ClassDescription = b.ClassDescription,
+                                     HexColor = b.HexColor,
+                                     PortraitHigh = b.PortraitHigh,
+                                     PortraitLow = b.PortraitLow,
+                                     IconHigh = b.IconHigh,
+                                     IconLow = b.IconLow,
                                      IsSpoiler = b.IsSpoiler,
                                      IsOfficial = b.IsOfficial,
-                                     IsExtended = b.IsExtended
+                                     IsExtended = b.IsExtended,
+                                     Source = b.Source
                                  }).SingleOrDefaultAsync(b => b.CharacterNumber == characterNumber);
 
 

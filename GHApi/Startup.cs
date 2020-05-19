@@ -64,6 +64,9 @@ namespace GHApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Added to expose images associated with the data.
+            app.UseFileServer();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
