@@ -1,2 +1,0 @@
-﻿CREATE USER [GH_Bot] FOR LOGIN [GH_Bot]
-    WITH DEFAULT_SCHEMA = [bot];
