@@ -37,7 +37,7 @@ namespace GloomBot.Bots
             db.LogMessage((Activity)turnContext.Activity);
 
             // Declare the response activity.
-            Activity responseActivity;
+            Activity responseActivity = new Activity();
 
             // Figure out what the user wants ans assemple a message.
             string messageText = turnContext.Activity.Text.ToLower();
@@ -47,61 +47,6 @@ namespace GloomBot.Bots
             // Look for help
             {
                 responseActivity = MessageFactory.Text($"By Merlin's Beard!\n{helpText}");
-            }
-            else if (messageText.Contains("city") || messageText.Contains("road"))
-            {
-                // Get the type
-                string cardType = messageText.Contains("city") ? cardType = "city" : cardType = "road";
-
-                // Find the number
-                string cardNumber = Regex.Match(messageText, @"\d+").Value;
-
-                if (cardNumber == "")
-                {
-                    responseActivity = MessageFactory.Text($"Looking for a {cardType} event, eh? I need to know the number!");
-                } else
-                {
-
-                    EventCard eventCard = await GloomhavenDB.GetEventCard(cardType, cardNumber);
-
-                    if (messageText.Contains("option"))
-                    {
-                        if (messageText.Contains(" a"))
-                        {
-                            Attachment eventCardOptionImage = new Attachment
-                            {
-                                Name = $"{eventCard.Type} Card {eventCard.Number} - Option A",
-                                ContentType = "image/png",
-                                ContentUrl = $"https://gloomhavendb.com{eventCard.OptionA.ImageUrl}"
-                            };
-
-                            responseActivity = (Activity)MessageFactory.Attachment(eventCardOptionImage);
-                        } else if (messageText.Contains(" b"))
-                        {
-                            Attachment eventCardOptionImage = new Attachment
-                            {
-                                Name = $"{eventCard.Type} Card {eventCard.Number} - Option B",
-                                ContentType = "image/png",
-                                ContentUrl = $"https://gloomhavendb.com{eventCard.OptionB.ImageUrl}"
-                            };
-
-                            responseActivity = (Activity)MessageFactory.Attachment(eventCardOptionImage);
-                        } else
-                        {
-                            responseActivity = MessageFactory.Text("You're asking for an result, but you didn't tell me which option.");
-                        }
-                    } else
-                    {
-                        Attachment eventCardImage = new Attachment
-                        {
-                            Name = $"{eventCard.Type} Card {eventCard.Number}",
-                            ContentType = "image/png",
-                            ContentUrl = $"https://gloomhavendb.com{eventCard.ImageUrl}"
-                        };
-                        responseActivity = (Activity)MessageFactory.Attachment(eventCardImage);
-                    }
-                }
-
             }
             else if (messageText.Contains("battlegoal") || messageText.Contains("battle goal"))
             // Look for battle goals
@@ -145,8 +90,90 @@ namespace GloomBot.Bots
                 int j = 0;
                 foreach (ChannelAccount c in connectedChannelAccounts)
                 {
-                    SendBattleGoalsMessage(c.Id, channelData, activity.ServiceUrl, cancellationToken, battleGoals[j], battleGoals[j+1]);
+                    SendBattleGoalsMessage(c.Id, channelData, activity.ServiceUrl, cancellationToken, battleGoals[j], battleGoals[j + 1]);
                     j += 2;
+                }
+            }
+            else if (messageText.Contains("city") || messageText.Contains("road"))
+            {
+                // Get the type
+                string cardType = messageText.Contains("city") ? cardType = "city" : cardType = "road";
+
+                // Find the number
+                string cardNumber = Regex.Match(messageText, @"\d+").Value;
+
+                if (cardNumber == "")
+                {
+                    responseActivity = MessageFactory.Text($"Looking for a {cardType} event, eh? I need to know the number!");
+                } else
+                {
+
+                    Event eventCard = await GloomhavenDB.GetEvent(cardType, cardNumber);
+
+                    if (messageText.Contains("option"))
+                    {
+                        if (messageText.Contains(" a"))
+                        {
+                            Attachment eventCardOptionImage = new Attachment
+                            {
+                                Name = $"{eventCard.Type} Card {eventCard.Number} - Option A",
+                                ContentType = "image/png",
+                                ContentUrl = $"https://gloomhavendb.com{eventCard.OptionA.ImageUrl}"
+                            };
+
+                            responseActivity = (Activity)MessageFactory.Attachment(eventCardOptionImage);
+                        } else if (messageText.Contains(" b"))
+                        {
+                            Attachment eventCardOptionImage = new Attachment
+                            {
+                                Name = $"{eventCard.Type} Card {eventCard.Number} - Option B",
+                                ContentType = "image/png",
+                                ContentUrl = $"https://gloomhavendb.com{eventCard.OptionB.ImageUrl}"
+                            };
+
+                            responseActivity = (Activity)MessageFactory.Attachment(eventCardOptionImage);
+                        } else
+                        {
+                            responseActivity = MessageFactory.Text("You're asking for a result, but you didn't tell me which option.");
+                        }
+                    } else
+                    {
+                        Attachment eventCardImage = new Attachment
+                        {
+                            Name = $"{eventCard.Type} Card {eventCard.Number}",
+                            ContentType = "image/png",
+                            ContentUrl = $"https://gloomhavendb.com{eventCard.ImageUrl}"
+                        };
+                        responseActivity = (Activity)MessageFactory.Attachment(eventCardImage);
+                    }
+                }
+
+            }
+            else if (messageText.Contains("item"))
+            {
+                // Find the number
+                string cardNumber = Regex.Match(messageText, @"\d+").Value;
+
+                if (cardNumber == "")
+                {
+                    responseActivity = MessageFactory.Text("You're asking for an item, but you didn't tell me which item number.");
+                }
+                else
+                {
+                    Item item = await GloomhavenDB.GetItem(cardNumber);
+                    if (item == null)
+                    {
+                        responseActivity = MessageFactory.Text($"Hmmm...  I don't seem to have item {cardNumber}.");
+                    } else
+                    {
+                        Attachment itemImage = new Attachment
+                        {
+                            Name = $"Item Card {item.Number}",
+                            ContentType = "image/png",
+                            ContentUrl = $"https://gloomhavendb.com{item.ImageUrl}"
+                        };
+                        responseActivity = (Activity)MessageFactory.Attachment(itemImage);
+                    }
                 }
             }
             else

@@ -1,7 +1,8 @@
-﻿namespace GHApi.Models
+﻿namespace GHApi.Models.Context
 {
-    public class BattleGoalDTO
+    public class BattleGoalEntity
     {
+        public int BattleGoalEntityId { get; set; }
         public string CardNumber { get; set; }
         public string GoalName { get; set; }
         public string GoalDescription { get; set; }

@@ -1,0 +1,172 @@
+[
+  {
+    "characterNumber": "01",
+    "fullName": "Inox Brute",
+    "race": "Inox",
+    "class": "Brute",
+    "spoilerFreeName": "Brute",
+    "isSpoiler": false,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "02",
+    "fullName": "Quatryl Tinkerer",
+    "race": "Quatryl",
+    "class": "Tinkerer",
+    "spoilerFreeName": "Tinkerer",
+    "isSpoiler": false,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "03",
+    "fullName": "Orchid Spellweaver",
+    "race": "Orchid",
+    "class": "Spellweaver",
+    "spoilerFreeName": "Spellweaver",
+    "isSpoiler": false,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "04",
+    "fullName": "Human Scoundrel",
+    "race": "Human",
+    "class": "Scoundrel",
+    "spoilerFreeName": "Scoundrel",
+    "isSpoiler": false,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "05",
+    "fullName": "Savvas Cragheart",
+    "race": "Savvas",
+    "class": "Cragheart",
+    "spoilerFreeName": "Cragheart",
+    "isSpoiler": false,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "06",
+    "fullName": "Vermling Mindthief",
+    "race": "Vermling",
+    "class": "Mindthief",
+    "spoilerFreeName": "Mindthief",
+    "isSpoiler": false,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "07",
+    "fullName": "Valrath Sunkeeper",
+    "race": "Valrath",
+    "class": "Sunkeeper",
+    "spoilerFreeName": "Sun",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "08",
+    "fullName": "Valrath Quartermaster",
+    "race": "Valrath",
+    "class": "Quartermaster",
+    "spoilerFreeName": "Three Spears",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "09",
+    "fullName": "Aesther Summoner",
+    "race": "Aesther",
+    "class": "Summoner",
+    "spoilerFreeName": "Concentric Circles",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "10",
+    "fullName": "Aesther Nightshroud",
+    "race": "Aesther",
+    "class": "Nightshroud",
+    "spoilerFreeName": "Moon/Eclipse",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "11",
+    "fullName": "Harrower Plagueherald",
+    "race": "Harrower",
+    "class": "Plagueherald",
+    "spoilerFreeName": "Cthulu",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "12",
+    "fullName": "Inox Berserker",
+    "race": "Inox",
+    "class": "Berserker",
+    "spoilerFreeName": "Lightning Bolt",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "13",
+    "fullName": "Quatryl Soothsinger",
+    "race": "Quatryl",
+    "class": "Soothsinger",
+    "spoilerFreeName": "Music Note",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "14",
+    "fullName": "Orchid Doomstalker",
+    "race": "Orchid",
+    "class": "Doomstalker",
+    "spoilerFreeName": "Spiky/Angry Face",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "15",
+    "fullName": "Human Sawbones",
+    "race": "Human",
+    "class": "Sawbones",
+    "spoilerFreeName": "Saw",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "16",
+    "fullName": "Savvas Elementalist",
+    "race": "Savvas",
+    "class": "Elementalist",
+    "spoilerFreeName": "Triforce",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "characterNumber": "17",
+    "fullName": "Vermling Beast Tyrant",
+    "race": "Vermling",
+    "class": "Beast Tyrant",
+    "spoilerFreeName": "Two-Mini",
+    "isSpoiler": true,
+    "isOfficial": true,
+    "isExtended": false
+  }
+]

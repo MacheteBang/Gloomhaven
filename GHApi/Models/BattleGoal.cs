@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GHApi.Models
+﻿namespace GHApi.Models
 {
     public class BattleGoal
     {
-        [Key]
-        public long BattleGoalId { get; set; }
         public string CardNumber { get; set; }
         public string GoalName { get; set; }
         public string GoalDescription { get; set; }

@@ -1,0 +1,487 @@
+[
+  {
+    "type": "City",
+    "cardNumber": "1",
+    "situation": "You decide to unwind at the Sleeping Lion, but just as you are starting to relax, a bear of a man crashes into your table, scattering your drinks across the floor.\r\nTowering over him is a massive Inox. \"\"What did you say about my horns?\"\" the Inox shouts.\r\nThe man stands up and brushes shards of glass from his tunic. \"\"I said the sight of them makes me want to vomit!\"\"\r\nThe Inox roars and charges headlong into the man, crashing through more tables in the process. At this, the entire tavern erupts into violence. After all, when a man is deep into his drink, the last thing you want to do is knock that drink over.",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Join the fray! These insults will not go unanswered!",
+        "results": [
+          {
+            "description": "Nothing like busting some drunken skulls to lift one's spirits. It tuns out to be a great way to unwind. Unfortunately, the proprietor of the Sleeping Lion doesn't exactly see it that way, and he sullenly asks for compensation for the damage you caused.",
+            "cardDestiny": "Return to Deck",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Gain 10 experience each."
+              },
+              {
+                "reward": "Either lose 5 gold each or lose 1 reputation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "Do your best to stop the fighting. This is a respectable establishment.",
+        "results": [
+          {
+            "description": "After restraining the enraged Inox and offering to replace the drinks of a few of the more belligerent patrons, you calm the place down a bit. Some of the non-human patrons are understandably on edge, but the proprietor thanks you for your efforts and reimburses you for the drinks.",
+            "cardDestiny": "Return to Deck",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Gain 1 reputation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "2",
+    "situation": "As the daylight fades, you find yourselves wandering through a half-crowded market street, browsing wares.\r\n\"\"Hey! Over here!\"\" You turn in the direction of the voice to see a filthy Vermling gesturing from a dark alley. \"\"Yeah, you grim-looking chaps. I have something you might be interested in.\"\"\r\nThe Vermling holds out a piece of metal covered in sludge. \"\"Found this in the sewer. Writing on it I don't understand, but I know it's valuable. You can have it for ten gold!\"\"",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Pay for the thing. You never know.",
+        "results": [
+          {
+            "description": "You hand over the gold and take hold of the piece of garbage. Amidst troubling brown smears you see a lot of meaningless scratches likely made by rates and bugs. Oh well. Sometimes the long shot doesn't pay off.",
+            "cardDestiny": "Return to Deck",
+            "requirements": [
+              {
+                "type": "Text",
+                "description": "Pay 10 collective gold.",
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          },
+          {
+            "description": "\"\"Bah! You don't have enough. Come back when you do!\"\"",
+            "cardDestiny": "Return to Deck",
+            "requirements": [
+              {
+                "type": "Text",
+                "description": "Otherwise",
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "Refuse to pay. Never trust a Vermling.",
+        "results": [
+          {
+            "description": "You laugh and gesture the Vermling away. You can recognize a low-life swindler when you see one. And that piece of garbage was just…foul.",
+            "cardDestiny": "Return to Deck",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "3",
+    "situation": "As the daylight fades, you find yourselves wandering through a half-crowded market street, browsing wares.\r\n\"\"Hey! Over here!\"\" You turn in the direction a of the voice to see a filthy Vermling gesturing from a dark alley. \"\"Yeah, you grim-looking chaps. I have something you might be interested in.\"\"\r\nThe Vermling holds out a piece of metal covered in sludge. \"\"Found this in the sewer. Writing on it l don't understand, but I know its valuable. You can have it for ten gold!\"\"",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Pay for the thing. You never know.",
+        "results": [
+          {
+            "description": "You hand over the gold and take hold of the metal. You wipe off the grime and slop to discover a foreign contraption made of large gears and many moving parts. If you can figure out what it is, this device might actually be of some worth.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [
+              {
+                "type": "Text",
+                "description": "Pay 10 collective gold.",
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "Gain 1 collective \"\"Curious Gear\"\" (Item 125)."
+              },
+              {
+                "reward": "Global Achievement: \"\"Ancient Technology.\"\""
+              }
+            ]
+          },
+          {
+            "description": "\"\"Bah! You don't have enough. Come back when you do!\"\"",
+            "cardDestiny": "Return to Deck",
+            "requirements": [
+              {
+                "type": "Text",
+                "description": "Otherwise",
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "Refuse to pay. Never trust a Vermling.",
+        "results": [
+          {
+            "description": "You laugh and gesture the Vermling away. You can recognize a low-life swindler when you see one. And that piece of garbage was just…foul.",
+            "cardDestiny": "Return to Deck",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "4",
+    "situation": "Having recently returned from your latest adventure, you are approached by a ratty-looking boy in tears.\r\n\"\"Please, sirs, could you please help me with my cat? He went over there, and I’m afraid.\"\" The boy points a dirty finger at a decrepit, abandoned building. \"\"I don't know what else to do.\"\"",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Find a cat? You have more important things to do.",
+        "results": [
+          {
+            "description": "You shake your head and direct the boy to go find his mother. With any luck she will knock some sense into him so that he stops troubling strangers with such trivial matters.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "Reassure the boy and go find the cat.",
+        "results": [
+          {
+            "description": "You approach the foreboding house full of heroic bravado. There's certainly nothing otherworldly about the structure, but its fallen beams and piles of rubble do make it difficult to look around. By the time you find the cat hiding under a burned-out bed frame, you are utterly exhausted. At least they boy is ecstatic his cat has been found.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Lose 1 ? each."
+              },
+              {
+                "reward": "Gain 1 reputation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "5",
+    "situation": "After resting for the evening, you start out your day noticing a great number of prominent, commanding posters around the city.\r\nReading one, you learn that the Sanctuary of the Great Oak is laying down the foundation for a new building on the east side of Gloomhaven. Everyone is encouraged to come and help. This could be an important community event.",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Go help lay the foundation.",
+        "results": [
+          {
+            "description": "Amidst a great deal of revelry, you put all you have into laying the foundation of the sanctuary. Surely much good will be done here healing the sick and wounded. After all your exhausting efforts, though, you might end up being their first patients.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Lose 1 ?."
+              },
+              {
+                "reward": "Gain 1 reputation."
+              },
+              {
+                "reward": "Gain 1 prosperity."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "Take the opportunity to steal some valuables in the area while people are distracted.",
+        "results": [
+          {
+            "description": "You head to the prosperous east side of town, not to help lay down the foundation, but to steal some goods from shopkeepers too silly to lock up there wares during the festivities. You make off with a good deal of money and the distracted guards are none the wiser.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Gain 5 gold each."
+              },
+              {
+                "reward": "Reputation < -4: Gain 5 additional gold each."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "6",
+    "situation": "You awake in the middle of the night to the sound of alarms ringing in the west. You recognize them as the warning clangs of an attack on the wall.\r\nAny force bold enough to assault the defenses of Gloomhaven can't be good. Fore a moment you are grateful for the prolific number of guards defending the city. But still, there is always the possibility that the guards may not be enough.",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Go aid in the defense of the city.",
+        "results": [
+          {
+            "description": "You rush towards the West Gate, eager to fight back the invaders. As you approach, you see a mass of Vermlings climbing over the wall and attacking the guards with daggers and arrows. You yell and charge into the battle. Is a rough fight, but you emerge victorious, covered in fur and blood. The citizens of Gloomhaven remain safe, and the town is free to grow and prosper.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Gain 5 experience each."
+              },
+              {
+                "reward": "Gain 1 prosperity."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "If the guards are distracted by an attacking force, now would be the perfect time to steal some valuables.",
+        "results": [
+          {
+            "description": "The town erupts into chaos with panicked cries of \"\"Vermlings!\"\" - a perfect opportunity to collect some valuables. Slinking around to an abandoned shop, you find a way in and pilfer the safe. In the morning, the devastation from the assault is noticeable. Downtrodden looks greet you as you pass, and you wonder if your presence was missed along the walls.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Gain Random Item Design."
+              },
+              {
+                "reward": "Reputation < 4: Lose 1 reputation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "7",
+    "situation": "Occasionally your dealings in town lead you past the building docks. All conversation gets drowned out by the constant din of loading and unloading cargo and crew. This makes it all the more surprising when you hear a voice above the noise directed straight at you.\r\n\"\"Oi! You with the hard looks and big arms! I desperately need some help o'er here! Spare a few minutes to help make sure I get out of port on time? Otherwise I'll be stuck here until tomorrow!\"\"",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Help the captain load his ship.",
+        "results": [
+          {
+            "description": "What was advertised as a few minutes turns out to be an hour or two as you lug large crates full of some foul-smelling liquid from a nearby warehouse into the hold of the ship. At lease the captain is relieved that he'll be able to set sail on time, though. He gratefully pays you, but you can't help but think that such menial labor might be beneath you.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Gain 5 gold each."
+              },
+              {
+                "reward": "Reputation > 9: Lose 1 reputation."
+              },
+              {
+                "reward": "Reputation < -4: Gain 1 reputation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "Move on with your business. You don't have the time or inclination for such things.",
+        "results": [
+          {
+            "description": "Unwilling to be bothered by such trivial matters, you continue on your way amidst curses from the ship's captain. \"\"Blast it all! You'll get nowhere in life with that sort of attitude!\"\"",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "Reputation > 4: Gain 1 reputation."
+              },
+              {
+                "reward": "Reputation < -9: Lose 1 reputation."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "8",
+    "situation": "On a trip to the New Market, you see a curious sea chart prominently displayed in a Valrath merchant's stall.\r\n\"\"Ah, I see this interests you!\"\" he says while holding it up, taking great care not to damage it. \"\"I've been told this map will lead you to a location of untold riches! Wondrous beyond anything you have seen before!\"\"\r\nThe Valrath gestures grandly with his free hand and his smile grows wide. \"\"How can you say no to this? Just make me an offer.\"\"",
+    "options": [
+      {
+        "letter": "A",
+        "description": "The map does look valuable. Decide to bargain for it.",
+        "results": [
+          {
+            "description": "After some amount of haggling back and forth, you settle on a price and pay for the map. You recognize some of the landmarks and should be able to find this place of \"\"untold treasure\"\" by hiring a ship.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [
+              {
+                "type": "Text",
+                "description": "Pay 20 (reputation < 10) or 15 (",
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "Unlock \"\"Sunken Vessel\"\" (93) (N-17)."
+              },
+              {
+                "reward": "Party Achievement: \"\"A Map to Treasure\"\""
+              }
+            ]
+          },
+          {
+            "description": "Despite your valiant efforts, you cannot get the merchant to lower his price to something you can afford.",
+            "cardDestiny": "Return to Deck",
+            "requirements": [
+              {
+                "type": "Text",
+                "description": "Otherwise",
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "Refuse to deal with the merchant.",
+        "results": [
+          {
+            "description": "Wary of the merchant's overly exuberant nature, you politely decline his offer and go about your intended business.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "City",
+    "cardNumber": "25",
+    "situation": "On a trip to the Coin District, you catch sight of an old, wiry Valrath carrying a large, intricate vase out of his front door.\r\nAs you get closer, the Valrath begins to struggle with the vase, sweat pouring from his brow. Under the strain, the Valrath loses his balance, and the fragile vase topples downward as he yells a string of curses.",
+    "options": [
+      {
+        "letter": "A",
+        "description": "Attempt to catch the vase.",
+        "results": [
+          {
+            "description": "You race forward and wrap your arms around the vase. You manage to keep grip of it, preventing tragedy. The Valrath is relieved and offers to pay you for your trouble if you carry it the rest of the way.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [
+              {
+                "type": "characterNumber",
+                "description": null,
+                "characterNumber": null
+              },
+              {
+                "type": "characterNumber",
+                "description": null,
+                "characterNumber": null
+              },
+              {
+                "type": "characterNumber",
+                "description": null,
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "Gain collective 5 gold."
+              }
+            ]
+          },
+          {
+            "description": "You race forward and attempt to catch the vase, but it is too much for you. Your grip loosens and the vase shatters into a hundred pieces. The Valrath is irate, demanding compensation from you for breaking it. You pay him what you can.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [
+              {
+                "type": "Text",
+                "description": "Otherwise",
+                "characterNumber": null
+              }
+            ],
+            "rewards": [
+              {
+                "reward": "Lose collective 10 gold."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "letter": "B",
+        "description": "With no time to react, watch the vase fall to the ground.",
+        "results": [
+          {
+            "description": "You watch helplessly as the vase careens out of the Valrath's grasp and, once it connects with the hard ground, shatters into a hundred pieces. The Valrath looks distraught and a little angry. You exchange a sympathetic glance with him and then continue about your business.",
+            "cardDestiny": "Remove from Game",
+            "requirements": [],
+            "rewards": [
+              {
+                "reward": "No effect."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -4,34 +4,41 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GHApi.Models;
+using GHApi.Models.Context;
 
 namespace GHApi.Controllers
 {
     [Produces("application/json")]
-    [Route("gh/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CharactersController : ControllerBase
     {
         // Private Variables
         // -----------------
-        private readonly GHContext db;
+        private readonly GHApiContext _context;
 
         // Constructors
         // ------------
-        public CharactersController(GHContext context)
+        public CharactersController(GHApiContext context)
         {
-            db = context;
+            _context = context;
         }
 
         /// <summary>
-        /// Gets a list of characters.
+        /// Retrieves all Characters.
         /// </summary>
+        /// <remarks></remarks>
+        /// <returns>
+        /// All Characters.
+        /// </returns>
+        /// <response code = "200">Characters returned.</response>
+        /// <response code = "404">No Characters found.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetCharacters()
+        public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
         {
             // Get all chacters in the database and return them as a DTO (hiding DB keys)
-            var characters = from b in db.Characters
-                             select new CharacterDTO()
+            var characters = from b in _context.Characters
+                             select new Character()
                              {
                                  CharacterNumber = b.CharacterNumber,
                                  FullName = b.FullName,
@@ -43,18 +50,21 @@ namespace GHApi.Controllers
                                  IsExtended = b.IsExtended
                              };
 
-            return await characters.ToListAsync();
+            return Ok(await characters.ToListAsync());
         }
 
         /// <summary>
-        /// Gets a specific character based upon it's "number".
+        /// Retrieves a specific Character based upon passed character number.
         /// </summary>
-        /// <param name="characterNumber"></param>
-        /// <returns>The requested character.</returns>
+        /// <param name="characterNumber">Character Number</param>
+        /// <remarks></remarks>
+        /// <returns>
+        /// A single Character.
+        /// </returns>
         /// <response code = "200">Returns the requested character.</response>
         /// <response code = "404">Character wasn't found.</response>
         [HttpGet("{characterNumber}")]
-        public async Task<ActionResult<CharacterDTO>> GetCharacter(string characterNumber)
+        public async Task<ActionResult<Character>> GetCharacter(string characterNumber)
         {
 
             // characterNumber should be a two character number formatted with a leading 0.
@@ -65,8 +75,8 @@ namespace GHApi.Controllers
                 // Success! It's an integer.  Now reformat it to include a leading zero.
                 characterNumber = i.ToString("D2");
 
-                var character = await db.Characters.Select(b =>
-                                 new CharacterDTO()
+                var character = await _context.Characters.Select(b =>
+                                 new Character()
                                  {
                                      CharacterNumber = b.CharacterNumber,
                                      FullName = b.FullName,
@@ -78,13 +88,15 @@ namespace GHApi.Controllers
                                      IsExtended = b.IsExtended
                                  }).SingleOrDefaultAsync(b => b.CharacterNumber == characterNumber);
 
+
                 if (character == null)
                 {
                     return NotFound();
                 }
 
                 return Ok(character);
-            } else
+            }
+            else
             {
                 return NotFound();
             }

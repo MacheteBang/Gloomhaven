@@ -9,7 +9,7 @@ namespace GloomBot
 {
     public class GloomhavenDB
     {
-        public async static Task<EventCard> GetEventCard(string type, string number)
+        public async static Task<Event> GetEvent(string type, string number)
         {
             if (type.ToLower() != "city" && type.ToLower() != "road")
             {
@@ -17,21 +17,21 @@ namespace GloomBot
             }
             else
             {
-                EventCard eventCard;
+                Event eventCard;
 
                 using (var httpClient = new HttpClient())
                 {
                     using (var response = await httpClient.GetAsync($"{Startup.GloomHavenDBUrl_Events}/{type}/{number}"))
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        eventCard = JsonConvert.DeserializeObject<EventCard>(apiResponse);
+                        eventCard = JsonConvert.DeserializeObject<Event>(apiResponse);
                     }
                 }
                 return eventCard;
             }
         }
 
-        public async static Task<List<EventCard>> GetEventCards(string type)
+        public async static Task<List<Event>> GetEvents(string type)
         {
             if (type.ToLower() != "city" && type.ToLower() != "road")
             {
@@ -39,18 +39,41 @@ namespace GloomBot
             }
             else
             {
-                List<EventCard> eventCards = new List<EventCard>();
+                List<Event> eventCards = new List<Event>();
 
                 using (var httpClient = new HttpClient())
                 {
                     using (var response = await httpClient.GetAsync($"{Startup.GloomHavenDBUrl_Events}/{type}"))
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        eventCards = JsonConvert.DeserializeObject<List<EventCard>>(apiResponse);
+                        eventCards = JsonConvert.DeserializeObject<List<Event>>(apiResponse);
                     }
                 }
                 return eventCards;
             }
+        }
+
+        public async static Task<Item> GetItem(string number)
+        {
+            Item item;
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"{Startup.GloomHavenDBUrl_Items}/{number}"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        item = JsonConvert.DeserializeObject<Item>(apiResponse);
+                    }
+                    else
+                    {
+                        item = null;
+                    }
+                    
+                }
+            }
+            return item;
         }
     }
 }

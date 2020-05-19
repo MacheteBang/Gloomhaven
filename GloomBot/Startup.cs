@@ -18,6 +18,8 @@ namespace GloomBot
         public static string BotAppSecret { get; private set; }
         public static string ApiUrl_BattleGoals { get; private set; }
         public static string GloomHavenDBUrl_Events { get; private set; }
+        public static string GloomHavenDBUrl_Items { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -51,6 +53,7 @@ namespace GloomBot
             BotAppSecret = Configuration["MicrosoftAppPassword"];
             ApiUrl_BattleGoals = Configuration["GHApiUrl_BattleGoals"];
             GloomHavenDBUrl_Events = Configuration["GloomhavenDBUrl_EventCards"];
+            GloomHavenDBUrl_Items = Configuration["GloomhavenDBUrl_Items"];
 
             if (env.IsDevelopment())
             {

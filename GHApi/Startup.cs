@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using GHApi.Models;
+using GHApi.Models.Context;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
@@ -28,8 +28,7 @@ namespace GHApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddDbContext<GHContext>(opt => opt.UseInMemoryDatabase("GH"));
-            services.AddDbContext<GHContext>(opt => opt.UseSqlServer(Configuration["GH_Database"]));
+            services.AddDbContext<GHApiContext>(opt => opt.UseInMemoryDatabase("GHApi"));
 
             // When pushing out nested objects, this ensures the cycle reference is bypassed.
             //https://stackoverflow.com/questions/59199593/net-core-3-0-possible-object-cycle-was-detected-which-is-not-supported
@@ -49,7 +48,7 @@ namespace GHApi
                     Contact = new OpenApiContact
                     {
                         Name = "Jonathan Gregorsky",
-                        Email = string.Empty
+                        Email = "jonathan@mmmpizza.net"
                     }
                 });
                 
@@ -77,7 +76,15 @@ namespace GHApi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                if (env.IsDevelopment())
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1 - Dev");
+                }
+                else
+                {
+                    c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1 - Production");
+                }
+                
             });
 
 
@@ -91,6 +98,10 @@ namespace GHApi
             {
                 endpoints.MapControllers();
             });
+
+            // Seed the database
+            GHApiContext _context = (GHApiContext)app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<GHApiContext>();
+            _context.SeedDatabase();
         }
     }
 }

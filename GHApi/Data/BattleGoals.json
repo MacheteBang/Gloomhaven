@@ -1,0 +1,704 @@
+[
+  {
+    "cardNumber": "458",
+    "goalName": "Streamliner",
+    "goalDescription": "Have five or more total cards in your hand and discard at the end of the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "459",
+    "goalName": "Layabout",
+    "goalDescription": "Gain 7 or fewer experience points during the scenario.",
+    "reward": 2,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "460",
+    "goalName": "Workhorse",
+    "goalDescription": "Gain 13 or more experience points during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "461",
+    "goalName": "Zealot",
+    "goalDescription": "Have three or fewer total cards in your hand and discard at the end of the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "462",
+    "goalName": "Masochist",
+    "goalDescription": "Your current hit point value must be equal or less than 2 at the end of the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "463",
+    "goalName": "Fast Healer",
+    "goalDescription": "Your current hit point value must be equal to your maximum hit point value at the end of the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "464",
+    "goalName": "Neutralizer",
+    "goalDescription": "Cause a trap to be sprung or disarmed on your turn or on the turn of one of your summons during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "465",
+    "goalName": "Plunderer",
+    "goalDescription": "Loot a treasure overlay tile during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "466",
+    "goalName": "Protector",
+    "goalDescription": "Allow none of your character allies to become exhausted during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "467",
+    "goalName": "Explorer",
+    "goalDescription": "Reveal a room tile by opening a door on your turn during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "468",
+    "goalName": "Hoarder",
+    "goalDescription": "Loot five or more money tokens during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "469",
+    "goalName": "Indigent",
+    "goalDescription": "Loot no money tokens or treasure overlay titles during this scenario.",
+    "reward": 2,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "470",
+    "goalName": "Pacifist",
+    "goalDescription": "Kill three or less monsters during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "471",
+    "goalName": "Sadist",
+    "goalDescription": "Kill five or more monsters during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "472",
+    "goalName": "Hunter",
+    "goalDescription": "Kill one or more elite monsters during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "473",
+    "goalName": "Professional",
+    "goalDescription": "Use your equipped items a number of times equal to greater than your level plus 2 during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "474",
+    "goalName": "Aggressor",
+    "goalDescription": "Have one or more monsters present on the map at the beginning of every round during this scenario.",
+    "reward": 2,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "475",
+    "goalName": "Dynamo",
+    "goalDescription": "Kill a monster during the scenario by causing at least 4 more points of damage to it more than necessary.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "476",
+    "goalName": "Purist",
+    "goalDescription": "Use no items during the scenario.",
+    "reward": 2,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "477",
+    "goalName": "Opener",
+    "goalDescription": "Be the first to kill a monster during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "478",
+    "goalName": "Diehard",
+    "goalDescription": "Never allow your current hit point value to drop below half your maximum hit point value (rounded up) during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "479",
+    "goalName": "Executioner",
+    "goalDescription": "Kill an undamaged monster with a single attack during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "480",
+    "goalName": "Straggler",
+    "goalDescription": "Take only long rests during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "481",
+    "goalName": "Scrambler",
+    "goalDescription": "Take only short rests during the scenario.",
+    "reward": 1,
+    "source": "Gloomhaven",
+    "isOfficial": true,
+    "isExtended": false
+  },
+  {
+    "cardNumber": "SE-001",
+    "goalName": "Acrobatic",
+    "goalDescription": "Lose a card to negate 5 or more damage.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-002",
+    "goalName": "Ambusher",
+    "goalDescription": "Open a door and end your move action adjacent to a monster in the revealed room.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-003",
+    "goalName": "Assassin",
+    "goalDescription": "Kill a monster before it takes any actions in the scenario.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-004",
+    "goalName": "Assistant",
+    "goalDescription": "Kill a monster attacked by an ally earlier in the round.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-005",
+    "goalName": "Bastion",
+    "goalDescription": "Be adjacent to at least two monsters while standing on a door hex.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-006",
+    "goalName": "Bully",
+    "goalDescription": "Kill a monster afflicted by a negative condition.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-007",
+    "goalName": "Contagious",
+    "goalDescription": "While afflicted by a negative condition, apply any negative condition to a monster.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-008",
+    "goalName": "Covetous",
+    "goalDescription": "Never collect a money token from end-of-turn looting.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-009",
+    "goalName": "Cuddler",
+    "goalDescription": "Take a rest only on rounds in which an ally is also taking a long or short rest.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-010",
+    "goalName": "Discriminating",
+    "goalDescription": "Kill no elite monsters or bosses during the scenario.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-011",
+    "goalName": "Distracted",
+    "goalDescription": "Kill a monster you are not adjacent to while adjacent to another monster.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-012",
+    "goalName": "Drowsy",
+    "goalDescription": "Declare a long rest while at your maximum hit point value.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-013",
+    "goalName": "Elitist",
+    "goalDescription": "Kill only elite monsters.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-014",
+    "goalName": "Exterminator",
+    "goalDescription": "Kill three monsters in the same round.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-015",
+    "goalName": "Fearful",
+    "goalDescription": "Never end your turn adjacent to a monster.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-016",
+    "goalName": "Feeble",
+    "goalDescription": "Be the first player to become exhausted.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-017",
+    "goalName": "Feral",
+    "goalDescription": "Have the most cards in your lost pile at the end of the scenario.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-018",
+    "goalName": "Finisher",
+    "goalDescription": "Kill the last monster to die in the scenario.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-019",
+    "goalName": "Hesitant",
+    "goalDescription": "Never go first in a round's initiative.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-020",
+    "goalName": "Hothead",
+    "goalDescription": "Add two cards to your lost pile before your first rest.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-021",
+    "goalName": "Instigator",
+    "goalDescription": "Except when long resting, never go last in a round's initiative.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-022",
+    "goalName": "Insulting",
+    "goalDescription": "Apply another negative condition to a monster already afflicted by one.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-023",
+    "goalName": "Limping",
+    "goalDescription": "Move using only basic move actions.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-024",
+    "goalName": "Lucky",
+    "goalDescription": "Kill a monster with an attack with disadvantage.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-025",
+    "goalName": "Marksman",
+    "goalDescription": "Kill a monster three or more hexes away from you.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-026",
+    "goalName": "Miser",
+    "goalDescription": "Never exit a room while money tokens remain in it.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-027",
+    "goalName": "Mugger",
+    "goalDescription": "Kill a monster and loot its money token on the same turn.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-028",
+    "goalName": "Multitasker",
+    "goalDescription": "Kill a monster and open a door on the same round.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-029",
+    "goalName": "Paranoid",
+    "goalDescription": "End each of your turns adjacent to a wall or obstacle.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-030",
+    "goalName": "Peacemonger",
+    "goalDescription": "Never deal the killing blow to a monster.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-031",
+    "goalName": "Perforated",
+    "goalDescription": "Lose 6 or more hit points in a single round.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-032",
+    "goalName": "Pickpocket",
+    "goalDescription": "Perform a loot action while adjacent to at least two monsters.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-033",
+    "goalName": "Pincushion",
+    "goalDescription": "Get attacked by three or more monsters in the same round.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-034",
+    "goalName": "Prosperous",
+    "goalDescription": "Collect three or more money tokens in the same turn.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-035",
+    "goalName": "Ravager",
+    "goalDescription": "Play two cards for their lost actions on the same turn.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-036",
+    "goalName": "Recluse",
+    "goalDescription": "Never end your turn adjacent to an ally.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-037",
+    "goalName": "Reserved",
+    "goalDescription": "Have the fewest cards in your lost pile at the end of the scenario.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-038",
+    "goalName": "Restless",
+    "goalDescription": "Move at least one hex on each of your turns (except when long resting).",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-039",
+    "goalName": "Retaliator",
+    "goalDescription": "Don't make any attacks in the scenario until after you've taken damage for the first time.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-040",
+    "goalName": "Ritualistic",
+    "goalDescription": "Kill a monster when two or more elements are strong or waning.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-041",
+    "goalName": "Scavenger",
+    "goalDescription": "Collect more money tokens than any other player.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-042",
+    "goalName": "Shadow",
+    "goalDescription": "End each of your turns adjacent to an ally.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-043",
+    "goalName": "Sharpshooter",
+    "goalDescription": "Kill a monster in a different room (neither of you may be on a doorway tile).",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-044",
+    "goalName": "Slayer",
+    "goalDescription": "Kill two monsters in the same round.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-045",
+    "goalName": "Sleepless",
+    "goalDescription": "Take damage during the same round you take a long rest.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-046",
+    "goalName": "Sober",
+    "goalDescription": "Use no potions during the scenario.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-047",
+    "goalName": "Sociable",
+    "goalDescription": "Never leave a room with a character ally remaining in it.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-048",
+    "goalName": "Specialized",
+    "goalDescription": "Don't use any basic actions.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-049",
+    "goalName": "Stalwart",
+    "goalDescription": "Never leave a hex adjacent to a monster.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-050",
+    "goalName": "Stubborn",
+    "goalDescription": "Do not lose any cards to negate damage during the scenario.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-051",
+    "goalName": "Thorough",
+    "goalDescription": "Never exit a room with monsters remaining in it.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-052",
+    "goalName": "Untouchable",
+    "goalDescription": "Take no damage.",
+    "reward": 2,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-053",
+    "goalName": "Wasteful",
+    "goalDescription": "Lose a card to negate 2 or less damage from an attack.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  },
+  {
+    "cardNumber": "SE-054",
+    "goalName": "Winded",
+    "goalDescription": "Never have fewer than one card in your hand.",
+    "reward": 1,
+    "source": "Satire's Extended Battle Goals",
+    "isOfficial": false,
+    "isExtended": true
+  }
+]

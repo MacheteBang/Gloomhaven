@@ -1,7 +1,8 @@
-﻿namespace GHApi.Models
+﻿namespace GHApi.Models.Context
 {
-    public class CharacterDTO
+    public class CharacterEntity
     {
+        public int CharacterEntityId { get; set; }
         public string CharacterNumber { get; set; }
         public string FullName { get; set; }
         public string Race { get; set; }

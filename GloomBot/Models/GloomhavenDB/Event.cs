@@ -1,6 +1,6 @@
 ﻿namespace GloomBot.Models.GloomhavenDB
 {
-    public class EventCard
+    public class Event
     {
         public int Id { get; set; }
         public string Number { get; set; }

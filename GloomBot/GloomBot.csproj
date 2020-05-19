@@ -3,11 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
+	  <!-- Added the below setting to enable running multiple apps under the same WebApp service-->
+	  <!-- http://www.binaryintellect.net/articles/bb086279-ed2a-4628-85f2-7e91125fbe57.aspx -->
+	  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.9.1" />
   </ItemGroup>
 
     <ItemGroup>

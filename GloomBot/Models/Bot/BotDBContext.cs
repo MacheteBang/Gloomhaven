@@ -48,6 +48,10 @@ namespace GloomBot.Models.Bot
             cm.ReplyToId = activity.ReplyToId;
             cm.ServiceUrl = activity.ServiceUrl;
             cm.Text = activity.Text;
+            if (activity.Attachments != null)
+            {
+                cm.Text += activity.Attachments.ToString();
+            }
 
             ConversationMessages.Add(cm);
             this.SaveChanges();

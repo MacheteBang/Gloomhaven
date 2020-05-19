@@ -3,36 +3,38 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using GHApi.Models;
+using GHApi.Models.Context;
 
 namespace GHApi.Controllers
 {
     [Produces("application/json")]
-    [Route("gh/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class EventCardsController : ControllerBase
     {
         // Private Variables
         // -----------------
-        private readonly GHContext db;
+        private readonly GHApiContext _context;
 
         // Constructors
         // ------------
-        public EventCardsController(GHContext context)
+        public EventCardsController(GHApiContext context)
         {
-            db = context;
+            _context = context;
         }
 
         // Helper Methods
         // ------------
-        private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<EventCard, ICollection<EventCardReward>> GetEventCardQuery()
+        private IIncludableQueryable<EventEntity, ICollection<EventRewardEntity>> GetEventCardQuery()
         {
-            // Query to connect all of the EventCard (inclusive of all of the shild tables).  Doing this to reduce code duplication.
+            // Query to connect all of the EventCard (inclusive of all of the child tables).  Doing this to reduce code duplication.
             // Learned from https://stackoverflow.com/questions/30072360/include-several-references-on-the-second-level
 
-            return db.EventCards
-            .Include(e => e.EventCardOptions).ThenInclude(eo => eo.EventCardResults).ThenInclude(r => r.EventCardRequirement)
-            .Include(e => e.EventCardOptions).ThenInclude(eo => eo.EventCardResults).ThenInclude(r => r.EventCardReward);
+            return _context.Events
+            .Include(e => e.Options).ThenInclude(eo => eo.Results).ThenInclude(r => r.Requirements)
+            .Include(e => e.Options).ThenInclude(eo => eo.Results).ThenInclude(r => r.Rewards);
         }
         private MapperConfiguration GetEventCardMapping()
         {
@@ -42,44 +44,53 @@ namespace GHApi.Controllers
 
             return new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<EventCard, EventCardDTO>();
-                cfg.CreateMap<EventCardOption, EventCardOptionDTO>();
-                cfg.CreateMap<EventCardResult, EventCardResultDTO>();
-                cfg.CreateMap<EventCardRequirement, EventCardRequirementDTO>();
-                cfg.CreateMap<EventCardReward, EventCardRewardDTO>();
+                cfg.CreateMap<EventEntity, Event>();
+                cfg.CreateMap<EventOptionEntity, EventOption>();
+                cfg.CreateMap<EventResultEntity, EventResult>();
+                cfg.CreateMap<EventRequirementEntity, EventRequirement>();
+                cfg.CreateMap<EventRewardEntity, EventReward>();
             });
         }
 
         /// <summary>
-        /// Gets a list of event cards.
+        /// Retrieves all Events.
         /// </summary>
+        /// <remarks></remarks>
+        /// <returns>
+        /// All Events.
+        /// </returns>
+        /// <response code = "200">Events returned.</response>
+        /// <response code = "404">No Events found.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventCardDTO>>> GetEventCards()
+        public async Task<ActionResult<IEnumerable<Event>>> GetEventCards()
         {
             // Get the cards from the database.
             var dbEventCards = GetEventCardQuery();
 
             // In order to hide the database keys, map them to corresponding DTOs and push them out to a list.
             var mapper = GetEventCardMapping().CreateMapper();
-            var eventCards = mapper.Map<List<EventCard>, List<EventCardDTO>>(await dbEventCards.ToListAsync());
+            var eventCards = mapper.Map<List<EventEntity>, List<Event>>(await dbEventCards.ToListAsync());
 
             // Send them out!
             return eventCards;
         }
 
         /// <summary>
-        /// Gets a specific event card based upon it's type and number.
+        /// Retrieves a specific Event based upon passed type and card number.
         /// </summary>
-        /// <param name="eventType">Can either be City or Road.</param>
-        /// <param name="cardNumber">Integer number of the card.</param>
-        /// <returns>The requested event card.</returns>
+        /// <param name="type">CITY or ROAD</param>
+        /// <param name="cardNumber">Card Number</param>
+        /// <remarks></remarks>
+        /// <returns>
+        /// A single Event.
+        /// </returns>
         /// <response code = "200">Returns the requested event card.</response>
         /// <response code = "404">Event card wasn't found.</response>
         [HttpGet("{eventType}/{cardNumber}")]
-        public async Task<ActionResult<EventCardDTO>> GetEventCard(string eventType, string cardNumber)
+        public async Task<ActionResult<Event>> GetEventCard(string type, string cardNumber)
         {
             // Only accept correct event types in the first node of the route, otherwise return a 404.
-            if (eventType.ToUpper() != "CITY" && eventType.ToUpper() != "ROAD")
+            if (type.ToUpper() != "CITY" && type.ToUpper() != "ROAD")
             {
                 // Send a 404
                 return NotFound();
@@ -87,7 +98,7 @@ namespace GHApi.Controllers
 
             // Query the databsase and then select the first card that matches the two incoming parameters.
             var dbEventCard =  await GetEventCardQuery()
-                .FirstOrDefaultAsync(i => i.CardNumber == cardNumber && i.EventType.ToUpper() == eventType.ToUpper());
+                .FirstOrDefaultAsync(i => i.CardNumber == cardNumber && i.Type.ToUpper() == type.ToUpper());
 
             // If the query above returns no result, send back a 404
             if (dbEventCard == null)
@@ -98,7 +109,7 @@ namespace GHApi.Controllers
 
             // In order to hide the database keys, map them to corresponding DTOs.
             var mapper = GetEventCardMapping().CreateMapper();
-            var eventCard = mapper.Map<EventCard, EventCardDTO>(dbEventCard);
+            var eventCard = mapper.Map<EventEntity, Event>(dbEventCard);
 
             // Send the card!
             return eventCard;
