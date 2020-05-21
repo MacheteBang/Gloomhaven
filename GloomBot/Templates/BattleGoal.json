@@ -1,0 +1,136 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2",
+  "body": [
+    {
+      "text": "From the darkness, I see two goals for you.  Choose one, and if you complete it, you will grow stronger!",
+      "type": "TextBlock",
+      "wrap": true
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "width": "auto",
+              "type": "Column",
+              "items": [
+                {
+                  "type": "Image",
+                  "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/battlegoal_back.jpg",
+                  "size": "Large"
+                }
+              ]
+            },
+            {
+              "width": "stretch",
+              "type": "Column",
+              "items": [
+                {
+                  "text": "{$root[0].GoalName}",
+                  "type": "TextBlock",
+                  "size": "Large",
+                  "weight": "Bolder"
+                },
+                {
+                  "text": "Reward: {$root[0].RewardChecks}",
+                  "type": "TextBlock",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "spacing": "None"
+                },
+                {
+                  "text": "{$root[0].GoalDescription}",
+                  "type": "TextBlock",
+                  "height": "stretch",
+                  "spacing": "Small",
+                  "wrap": true
+                },
+                {
+                  "text": "{$root[0].CardNumber}",
+                  "type": "TextBlock",
+                  "horizontalAlignment": "Right",
+                  "size": "Small",
+                  "spacing": "None"
+                },
+                {
+                  "text": "{$root[0].Source}",
+                  "type": "TextBlock",
+                  "size": "Small",
+                  "spacing": "None",
+                  "horizontalAlignment": "Right"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "width": "auto",
+              "type": "Column",
+              "items": [
+                {
+                  "type": "Image",
+                  "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/battlegoal_back.jpg",
+                  "size": "Large"
+                }
+              ]
+            },
+            {
+              "width": "stretch",
+              "type": "Column",
+              "items": [
+                {
+                  "text": "{$root[1].GoalName}",
+                  "type": "TextBlock",
+                  "size": "Large",
+                  "weight": "Bolder"
+                },
+                {
+                  "text": "Reward: {$root[1].RewardChecks}",
+                  "type": "TextBlock",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "spacing": "None"
+                },
+                {
+                  "text": "{$root[1].GoalDescription}",
+                  "type": "TextBlock",
+                  "height": "stretch",
+                  "spacing": "Small",
+                  "wrap": true
+                },
+                {
+                  "text": "{$root[1].CardNumber}",
+                  "type": "TextBlock",
+                  "horizontalAlignment": "Right",
+                  "size": "Small",
+                  "spacing": "None"
+                },
+                {
+                  "text": "{$root[1].Source}",
+                  "type": "TextBlock",
+                  "size": "Small",
+                  "spacing": "None",
+                  "horizontalAlignment": "Right"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

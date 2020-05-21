@@ -84,7 +84,7 @@ namespace GHApi
                 }
                 else
                 {
-                    c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1 - Production");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1 - Production");
                 }
                 
             });

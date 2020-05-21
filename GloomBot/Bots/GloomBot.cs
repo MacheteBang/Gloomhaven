@@ -8,14 +8,10 @@ using Microsoft.Bot.Connector;
 using System;
 using Microsoft.Bot.Connector.Authentication;
 using GloomBot.Models.GHApi;
-using GloomBot.Models.Bot;
 using GloomBot.Models.GloomhavenDB;
 using System.Text.RegularExpressions;
-
-using AdaptiveCards;
 using AdaptiveCards.Templating;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Linq;
 
 namespace GloomBot.Bots
@@ -46,6 +42,10 @@ namespace GloomBot.Bots
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
+            // Send a typing indicator to let the user know it's working
+            Activity[] a = { new Activity("typing"), new Activity() {Type="delay", Value=500 } };
+            await turnContext.SendActivitiesAsync(a);
+
             // Branch based on Card Post Back or User Message
             if (string.IsNullOrWhiteSpace(turnContext.Activity.Text) && turnContext.Activity.Value != null)
             { // This is a card response
@@ -73,18 +73,6 @@ namespace GloomBot.Bots
                         {
                             await turnContext.SendActivityAsync(newActivity, cancellationToken);
                         }
-
-
-                        //await turnContext.SendActivityAsync(await GiveEventOptionAsync(eventType, cardNumber, option), cancellationToken);
-
-                        //// Update the initiating message (card) to be removed (if possible)
-                        //if (turnContext.Activity.ReplyToId != null)
-                        //{
-                        //    Activity newActivity = (Activity)MessageFactory.Text($"{eventType} Event {cardNumber} Played and Option {option} Chosen");
-                        //    newActivity.Id = turnContext.Activity.ReplyToId;
-                        //    await turnContext.UpdateActivityAsync(newActivity, cancellationToken);
-                        //}
-
                         break;
                 }
             }
@@ -145,11 +133,12 @@ namespace GloomBot.Bots
 
             if (turnContext.Activity.ChannelId == "msteams")
             {
+
                 // Send a message in the collected channel accounts.
                 int j = 0;
                 foreach (ChannelAccount c in connectedChannelAccounts)
                 {
-                    SendIndividualBattleGoalsAsync(c.Id, turnContext, cancellationToken, battleGoals[j], battleGoals[j + 1]);
+                    SendIndividualBattleGoalsAsync(c.Id, turnContext, cancellationToken, new BattleGoal[] { battleGoals[j], battleGoals[j + 1] });
                     j += 2;
                 }
 
@@ -157,11 +146,29 @@ namespace GloomBot.Bots
                 return MessageFactory.Text($"⚔️ The time is nigh to fight the forces of Gloom!  I have bestowed unto thee two goals for this battle. These warriors shall recieve these visions directly: {connectedNames} ⚔️");
             }
             else
-            {
-                return MessageFactory.Text($"No goals have been sent - this only works in MS Teams. (for the moment)");
+            { // Reply back directly with two battle goals. (duplicated from SendIndividualBattleGoalsAsync)
+                /////
+                // Get the card (and serialize it)
+                string battleGoalData = JsonConvert.SerializeObject(new BattleGoal[] { battleGoals[0], battleGoals[1] });
+
+                // Get the template
+                string eventTemplate = System.IO.File.ReadAllText(@"Templates\BattleGoal.json");
+
+                // Create the AdaptiveCard using an AdaptiveTransformer
+                AdaptiveTransformer transformer = new AdaptiveTransformer();
+                string eventCard = transformer.Transform(eventTemplate, battleGoalData);
+                Attachment adaptiveCard = new Attachment()
+                {
+                    ContentType = "application/vnd.microsoft.card.adaptive",
+                    Content = JsonConvert.DeserializeObject(eventCard)
+                };
+
+                return (Activity)MessageFactory.Attachment(adaptiveCard);
+                ///////
+                ///return MessageFactory.Text($"No goals have been sent - this only works in MS Teams. (for the moment)");
             }
         }
-        private async void SendIndividualBattleGoalsAsync(string userId, ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken, BattleGoal battleGoal1, BattleGoal battleGoal2)
+        private async void SendIndividualBattleGoalsAsync(string userId, ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken, BattleGoal[] battleGoals)
         {
             // Create a separate connector to send private messages
             MicrosoftAppCredentials creds = new MicrosoftAppCredentials(Startup.BotAppId, Startup.BotAppSecret);
@@ -171,24 +178,31 @@ namespace GloomBot.Bots
             ChannelAccount channelAccount = new ChannelAccount(userId);
 
             // Create conversation parameter
-            ConversationParameters conversationParameters = new ConversationParameters();
-            conversationParameters.ChannelData = new TeamsChannelData() { Tenant = new TenantInfo(turnContext.Activity.Conversation.TenantId) }; ;
-            conversationParameters.Members = new List<ChannelAccount>() { channelAccount };
+            ConversationParameters conversationParameters = new ConversationParameters()
+            {
+                ChannelData = new TeamsChannelData() { Tenant = new TenantInfo(turnContext.Activity.Conversation.TenantId) },
+                Members = new List<ChannelAccount>() { channelAccount }
+            };
 
             // Create/get the conversation
             var response = await connector.Conversations.CreateConversationAsync(conversationParameters);
 
-            // Send that person a private message
-            List<CardImage> cardImage = new List<CardImage> { new CardImage("https://mmmpizzastorage.blob.core.windows.net/mmmpizzablob/battlegoal_back.jpg") };
-            ThumbnailCard bg1 = new ThumbnailCard(battleGoal1.GoalName, "Reward: ".PadRight(8 + battleGoal1.Reward, '✓'), $"{battleGoal1.GoalDescription}", cardImage);
-            ThumbnailCard bg2 = new ThumbnailCard(battleGoal2.GoalName, "Reward: ".PadRight(8 + battleGoal2.Reward, '✓'), $"{battleGoal2.GoalDescription}", cardImage);
+            // Get the card (and serialize it)
+            string battleGoalData = JsonConvert.SerializeObject(battleGoals);
 
-            Activity a = (Activity)MessageFactory.Attachment(bg1.ToAttachment());
-            a.Attachments.Add(bg2.ToAttachment());
-            a.AttachmentLayout = "list";
-            a.Text = "From the darkness, I see two goals for you.  Choose one, and if you complete it, you will grow stronger!";
+            // Get the template
+            string battleGoalTemplate = System.IO.File.ReadAllText(@"Templates\BattleGoal.json");
 
-            await connector.Conversations.SendToConversationAsync(response.Id, a, cancellationToken);
+            // Create the AdaptiveCard using an AdaptiveTransformer
+            AdaptiveTransformer transformer = new AdaptiveTransformer();
+            string battleGoalCard = transformer.Transform(battleGoalTemplate, battleGoalData);
+            Attachment adaptiveCard = new Attachment()
+            {
+                ContentType = "application/vnd.microsoft.card.adaptive",
+                Content = JsonConvert.DeserializeObject(battleGoalCard)
+            };
+
+            await connector.Conversations.SendToConversationAsync(response.Id, (Activity)MessageFactory.Attachment(adaptiveCard), cancellationToken);
         }
         private async Task<Activity> GiveEventAsync(string message)
         {
@@ -231,8 +245,6 @@ namespace GloomBot.Bots
             // look at the "A" properties.
             if (option == "B")
                 e.OptionA = e.OptionB;
-
-            e.OptionA.Letter = option;
 
             // Get the card (and serialize it)
             string eventData = JsonConvert.SerializeObject(e);
