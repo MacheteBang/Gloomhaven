@@ -33,10 +33,7 @@ namespace GloomBot
             services.AddMvc();
 
             // Add the database
-            services.AddDbContext<BotDBContext>(opt => opt.UseSqlServer(Configuration["Bot_Database"]));
             services.AddSingleton<GloomBot.Bots.GloomBot, GloomBot.Bots.GloomBot>();
-
-            
 
             // Create the Bot Framework Adapter with error handling enabled.
             services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
