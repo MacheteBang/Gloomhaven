@@ -1,0 +1,197 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "width": "stretch",
+          "type": "Column",
+          "items": [
+            {
+              "text": "{Type} Event",
+              "type": "TextBlock",
+              "size": "ExtraLarge"
+            }
+          ]
+        },
+        {
+          "width": "auto",
+          "type": "Column",
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "title": "Show Card",
+                  "type": "Action.ToggleVisibility",
+                  "targetElements": [
+                    "showCardColumn",
+                    "showTextColumn",
+                    "cardText",
+                    "cardImage"
+                  ]
+                }
+              ]
+            }
+          ],
+          "id": "showCardColumn"
+        },
+        {
+          "width": "auto",
+          "type": "Column",
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "title": "Show Text",
+                  "type": "Action.ToggleVisibility",
+                  "targetElements": [
+                    "showCardColumn",
+                    "showTextColumn",
+                    "cardText",
+                    "cardImage"
+                  ]
+                }
+              ]
+            }
+          ],
+          "id": "showTextColumn",
+          "isVisible": false
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "text": "{Text}",
+          "type": "TextBlock",
+          "wrap": true
+        },
+        {
+          "text": "{Number}",
+          "type": "TextBlock",
+          "horizontalAlignment": "Center",
+          "size": "Medium",
+          "color": "Accent"
+        }
+      ],
+      "id": "cardText",
+      "separator": true
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "Image",
+          "url": "https://gloomhavendb.com{ImageUrl}",
+          "horizontalAlignment": "Center"
+        }
+      ],
+      "id": "cardImage",
+      "isVisible": false,
+      "height": "stretch"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "width": "stretch",
+          "type": "Column",
+          "selectAction": {
+            "type": "Action.ToggleVisibility",
+            "targetElements": [
+              "OptionAButton",
+              "OptionBButton"
+            ]
+          },
+          "items": [
+            {
+              "text": "{OptionA.Choice}",
+              "type": "TextBlock",
+              "wrap": true
+            }
+          ]
+        },
+        {
+          "width": "stretch",
+          "type": "Column",
+          "items": [
+            {
+              "text": "{OptionB.Choice}",
+              "type": "TextBlock",
+              "wrap": true
+            }
+          ]
+        }
+      ],
+      "separator": true
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "width": "stretch",
+          "type": "Column",
+          "items": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "ActionSet",
+                  "actions": [
+                    {
+                      "title": "Option A",
+                      "type": "Action.Submit",
+                      "data": {
+                        "cardResponse": "EventOption",
+                        "eventType": "{Type}",
+                        "cardNumber": "{Number}",
+                        "option": "A"
+                      },
+                      "id": "OptionAButton"
+                    }
+                  ],
+                  "horizontalAlignment": "Center"
+                }
+              ],
+              "horizontalAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "width": "stretch",
+          "type": "Column",
+          "items": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "ActionSet",
+                  "actions": [
+                    {
+                      "title": "Option B",
+                      "type": "Action.Submit",
+                      "data": {
+                        "cardResponse": "EventOption",
+                        "eventType": "{Type}",
+                        "cardNumber": "{Number}",
+                        "option": "B"
+                      }
+                    }
+                  ],
+                  "horizontalAlignment": "Center"
+                }
+              ],
+              "horizontalAlignment": "Center"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
