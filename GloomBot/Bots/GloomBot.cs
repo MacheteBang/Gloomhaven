@@ -62,15 +62,28 @@ namespace GloomBot.Bots
                         string cardNumber = token["cardNumber"].ToString();
                         string option = token["option"].ToString();
 
-                        await turnContext.SendActivityAsync(await GiveEventOptionAsync(eventType, cardNumber, option), cancellationToken);
-
-                        // Update the initiating message (card) to be removed (if possible)
+                        Activity newActivity = (Activity)(await GiveEventOptionAsync(eventType, cardNumber, option));
+                        
                         if (turnContext.Activity.ReplyToId != null)
                         {
-                            Activity newActivity = (Activity)MessageFactory.Text($"{eventType} Event {cardNumber} Played and Option {option} Chosen");
                             newActivity.Id = turnContext.Activity.ReplyToId;
                             await turnContext.UpdateActivityAsync(newActivity, cancellationToken);
                         }
+                        else
+                        {
+                            await turnContext.SendActivityAsync(newActivity, cancellationToken);
+                        }
+
+
+                        //await turnContext.SendActivityAsync(await GiveEventOptionAsync(eventType, cardNumber, option), cancellationToken);
+
+                        //// Update the initiating message (card) to be removed (if possible)
+                        //if (turnContext.Activity.ReplyToId != null)
+                        //{
+                        //    Activity newActivity = (Activity)MessageFactory.Text($"{eventType} Event {cardNumber} Played and Option {option} Chosen");
+                        //    newActivity.Id = turnContext.Activity.ReplyToId;
+                        //    await turnContext.UpdateActivityAsync(newActivity, cancellationToken);
+                        //}
 
                         break;
                 }
@@ -211,22 +224,32 @@ namespace GloomBot.Bots
         }
         private async Task<Activity> GiveEventOptionAsync(string eventType, string cardNumber, string option)
         {
-            // Get the card from the API
-            Event eventCard = await GloomhavenDB.GetEvent(eventType, cardNumber);
+            // Get the event data
+            Event e = await GloomhavenDB.GetEvent(eventType, cardNumber);
 
-            // Create the activity as an attachment.
-            Attachment eventCardOptionImage = new Attachment
+            // For simplicity, the template is just going to use the same object and ALWAYS
+            // look at the "A" properties.
+            if (option == "B")
+                e.OptionA = e.OptionB;
+
+            e.OptionA.Letter = option;
+
+            // Get the card (and serialize it)
+            string eventData = JsonConvert.SerializeObject(e);
+
+            // Get the templat
+            string eventTemplate = System.IO.File.ReadAllText(@"Templates\EventResult.json");
+
+            // Create the AdaptiveCard using an AdaptiveTransformer
+            AdaptiveTransformer transformer = new AdaptiveTransformer();
+            string eventCard = transformer.Transform(eventTemplate, eventData);
+            Attachment adaptiveCard = new Attachment()
             {
-                Name = $"{eventCard.Type} Card {eventCard.Number} - Option {option}",
-                ContentType = "image/png"
+                ContentType = "application/vnd.microsoft.card.adaptive",
+                Content = JsonConvert.DeserializeObject(eventCard)
             };
 
-            if (option == "A")
-                eventCardOptionImage.ContentUrl = $"https://gloomhavendb.com{eventCard.OptionA.ImageUrl}";
-            else
-                eventCardOptionImage.ContentUrl = $"https://gloomhavendb.com{eventCard.OptionB.ImageUrl}";
-
-            return (Activity)MessageFactory.Attachment(eventCardOptionImage);
+            return (Activity)MessageFactory.Attachment(adaptiveCard);
         }
     }
 }

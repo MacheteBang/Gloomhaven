@@ -10,5 +10,6 @@ namespace GloomBot.Models.GloomhavenDB
         public string Choice { get; set; }
         public string Outcome { get; set; }
         public string ImageUrl { get; set; }
+        public string Letter { get; set; }
     }
 }

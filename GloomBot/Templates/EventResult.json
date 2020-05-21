@@ -1,0 +1,184 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "width": "stretch",
+          "type": "Column",
+          "items": [
+            {
+              "text": "{Type} Event",
+              "type": "TextBlock",
+              "size": "ExtraLarge"
+            }
+          ]
+        },
+        {
+          "width": "auto",
+          "type": "Column",
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "title": "Show Card",
+                  "type": "Action.ToggleVisibility",
+                  "targetElements": [
+                    "showCardColumn",
+                    "showTextColumn",
+                    "cardText",
+                    "cardImage"
+                  ]
+                }
+              ]
+            }
+          ],
+          "id": "showCardColumn"
+        },
+        {
+          "width": "auto",
+          "type": "Column",
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "title": "Show Text",
+                  "type": "Action.ToggleVisibility",
+                  "targetElements": [
+                    "showCardColumn",
+                    "showTextColumn",
+                    "cardText",
+                    "cardImage"
+                  ]
+                }
+              ]
+            }
+          ],
+          "id": "showTextColumn",
+          "isVisible": false
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "text": "{Text}",
+          "type": "TextBlock",
+          "wrap": true
+        },
+        {
+          "text": "{Number}",
+          "type": "TextBlock",
+          "horizontalAlignment": "Center",
+          "size": "Medium",
+          "color": "Accent"
+        }
+      ],
+      "id": "cardText",
+      "separator": true
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "Image",
+          "url": "https://gloomhavendb.com{ImageUrl}",
+          "horizontalAlignment": "Center"
+        }
+      ],
+      "id": "cardImage",
+      "isVisible": false,
+      "height": "stretch"
+    },
+    {
+      "type": "ColumnSet",
+      "separator": true,
+      "columns": [
+        {
+          "width": "stretch",
+          "type": "Column",
+          "items": [
+            {
+              "text": "Option {OptionA.Letter}",
+              "type": "TextBlock",
+              "size": "Large"
+            }
+          ]
+        },
+        {
+          "width": "auto",
+          "type": "Column",
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "title": "Show Card",
+                  "type": "Action.ToggleVisibility",
+                  "targetElements": [
+                    "OptionText",
+                    "OptionImage",
+                    "showOptionCardColumn",
+                    "showOptionTextColumn"
+                  ]
+                }
+              ]
+            }
+          ],
+          "id": "showOptionCardColumn"
+        },
+        {
+          "width": "auto",
+          "type": "Column",
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.ToggleVisibility",
+                  "title": "Show Text",
+                  "targetElements": [
+                    "OptionText",
+                    "OptionImage",
+                    "showOptionCardColumn",
+                    "showOptionTextColumn"
+                  ]
+                }
+              ]
+            }
+          ],
+          "id": "showOptionTextColumn",
+          "isVisible": false
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "id": "OptionText",
+      "items": [
+        {
+          "text": "{OptionA.Outcome}",
+          "type": "TextBlock",
+          "wrap": true
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "id": "OptionImage",
+      "items": [
+        {
+          "type": "Image",
+          "url": "https://gloomhavendb.com{OptionA.ImageUrl}"
+        }
+      ],
+      "isVisible": false
+    }
+  ]
+}
