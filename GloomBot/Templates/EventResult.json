@@ -5,12 +5,12 @@
   "body": [
     {
       "type": "Image",
-      "url": "https://gloomhavendb.com{ImageUrl}",
+      "url": "https://gloomhavendb.com${ImageUrl}",
       "horizontalAlignment": "Center"
     },
     {
       "type": "Image",
-      "url": "https://gloomhavendb.com{OptionA.ImageUrl}",
+      "url": "https://gloomhavendb.com${OptionA.ImageUrl}",
       "horizontalAlignment": "Center"
     }
   ]

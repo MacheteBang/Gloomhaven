@@ -5,7 +5,7 @@
   "body": [
     {
       "type": "Image",
-      "url": "https://gloomhavendb.com{ImageUrl}",
+      "url": "https://gloomhavendb.com${ImageUrl}",
       "horizontalAlignment": "Center"
     },
     {
@@ -24,8 +24,8 @@
                   "type": "Action.Submit",
                   "data": {
                     "cardResponse": "EventOption",
-                    "eventType": "{Type}",
-                    "cardNumber": "{Number}",
+                    "eventType": "${Type}",
+                    "cardNumber": "${Number}",
                     "option": "A"
                   }
                 }
@@ -46,8 +46,8 @@
                   "title": "B",
                   "data": {
                     "cardResponse": "EventOption",
-                    "eventType": "{Type}",
-                    "cardNumber": "{Number}",
+                    "eventType": "${Type}",
+                    "cardNumber": "${Number}",
                     "option": "B"
                   }
                 }

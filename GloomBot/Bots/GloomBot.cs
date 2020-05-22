@@ -13,8 +13,6 @@ using System.Text.RegularExpressions;
 using AdaptiveCards.Templating;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using AdaptiveCards;
-
 namespace GloomBot.Bots
 {
     public class GloomBot : ActivityHandler
@@ -229,8 +227,8 @@ namespace GloomBot.Bots
             string templateJson = System.IO.File.ReadAllText(templateLocation);
 
             // Create the AdaptiveCard using an AdaptiveTransformer
-            AdaptiveTransformer transformer = new AdaptiveTransformer();
-            string cardJson = transformer.Transform(templateJson, dataJson);
+            AdaptiveCardTemplate template = new AdaptiveCardTemplate(templateJson);
+            string cardJson = template.Expand(dataJson);
             Attachment adaptiveCard = new Attachment()
             {
                 ContentType = "application/vnd.microsoft.card.adaptive",

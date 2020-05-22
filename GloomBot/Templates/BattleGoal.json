@@ -31,34 +31,34 @@
               "type": "Column",
               "items": [
                 {
-                  "text": "{$root[0].GoalName}",
+                  "text": "${$root[0].GoalName}",
                   "type": "TextBlock",
                   "size": "Large",
                   "weight": "Bolder"
                 },
                 {
-                  "text": "Reward: {$root[0].RewardChecks}",
+                  "text": "Reward: ${$root[0].RewardChecks}",
                   "type": "TextBlock",
                   "weight": "Bolder",
                   "size": "Medium",
                   "spacing": "None"
                 },
                 {
-                  "text": "{$root[0].GoalDescription}",
+                  "text": "${$root[0].GoalDescription}",
                   "type": "TextBlock",
                   "height": "stretch",
                   "spacing": "Small",
                   "wrap": true
                 },
                 {
-                  "text": "{$root[0].CardNumber}",
+                  "text": "${$root[0].CardNumber}",
                   "type": "TextBlock",
                   "horizontalAlignment": "Right",
                   "size": "Small",
                   "spacing": "None"
                 },
                 {
-                  "text": "{$root[0].Source}",
+                  "text": "${$root[0].Source}",
                   "type": "TextBlock",
                   "size": "Small",
                   "spacing": "None",
@@ -93,34 +93,34 @@
               "type": "Column",
               "items": [
                 {
-                  "text": "{$root[1].GoalName}",
+                  "text": "${$root[1].GoalName}",
                   "type": "TextBlock",
                   "size": "Large",
                   "weight": "Bolder"
                 },
                 {
-                  "text": "Reward: {$root[1].RewardChecks}",
+                  "text": "Reward: ${$root[1].RewardChecks}",
                   "type": "TextBlock",
                   "weight": "Bolder",
                   "size": "Medium",
                   "spacing": "None"
                 },
                 {
-                  "text": "{$root[1].GoalDescription}",
+                  "text": "${$root[1].GoalDescription}",
                   "type": "TextBlock",
                   "height": "stretch",
                   "spacing": "Small",
                   "wrap": true
                 },
                 {
-                  "text": "{$root[1].CardNumber}",
+                  "text": "${$root[1].CardNumber}",
                   "type": "TextBlock",
                   "horizontalAlignment": "Right",
                   "size": "Small",
                   "spacing": "None"
                 },
                 {
-                  "text": "{$root[1].Source}",
+                  "text": "${$root[1].Source}",
                   "type": "TextBlock",
                   "size": "Small",
                   "spacing": "None",
