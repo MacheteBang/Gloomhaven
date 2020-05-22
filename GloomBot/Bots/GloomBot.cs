@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using AdaptiveCards.Templating;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using AdaptiveCards;
 
 namespace GloomBot.Bots
 {
@@ -94,6 +95,10 @@ namespace GloomBot.Bots
                 { // User is asking for an event card
                     await turnContext.SendActivityAsync(await GiveEventAsync(messageText), cancellationToken);
                 }
+                else if (messageText.Contains("item"))
+                {
+                    await turnContext.SendActivityAsync(await GiveItemAsync(messageText));
+                }
                 else
                 // Everything else.
                 {
@@ -147,25 +152,8 @@ namespace GloomBot.Bots
             }
             else
             { // Reply back directly with two battle goals. (duplicated from SendIndividualBattleGoalsAsync)
-                /////
-                // Get the card (and serialize it)
-                string battleGoalData = JsonConvert.SerializeObject(new BattleGoal[] { battleGoals[0], battleGoals[1] });
+                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(new BattleGoal[] { battleGoals[0], battleGoals[1] }, @"Templates\BattleGoal.json"));
 
-                // Get the template
-                string eventTemplate = System.IO.File.ReadAllText(@"Templates\BattleGoal.json");
-
-                // Create the AdaptiveCard using an AdaptiveTransformer
-                AdaptiveTransformer transformer = new AdaptiveTransformer();
-                string eventCard = transformer.Transform(eventTemplate, battleGoalData);
-                Attachment adaptiveCard = new Attachment()
-                {
-                    ContentType = "application/vnd.microsoft.card.adaptive",
-                    Content = JsonConvert.DeserializeObject(eventCard)
-                };
-
-                return (Activity)MessageFactory.Attachment(adaptiveCard);
-                ///////
-                ///return MessageFactory.Text($"No goals have been sent - this only works in MS Teams. (for the moment)");
             }
         }
         private async void SendIndividualBattleGoalsAsync(string userId, ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken, BattleGoal[] battleGoals)
@@ -187,22 +175,7 @@ namespace GloomBot.Bots
             // Create/get the conversation
             var response = await connector.Conversations.CreateConversationAsync(conversationParameters);
 
-            // Get the card (and serialize it)
-            string battleGoalData = JsonConvert.SerializeObject(battleGoals);
-
-            // Get the template
-            string battleGoalTemplate = System.IO.File.ReadAllText(@"Templates\BattleGoal.json");
-
-            // Create the AdaptiveCard using an AdaptiveTransformer
-            AdaptiveTransformer transformer = new AdaptiveTransformer();
-            string battleGoalCard = transformer.Transform(battleGoalTemplate, battleGoalData);
-            Attachment adaptiveCard = new Attachment()
-            {
-                ContentType = "application/vnd.microsoft.card.adaptive",
-                Content = JsonConvert.DeserializeObject(battleGoalCard)
-            };
-
-            await connector.Conversations.SendToConversationAsync(response.Id, (Activity)MessageFactory.Attachment(adaptiveCard), cancellationToken);
+            await connector.Conversations.SendToConversationAsync(response.Id, (Activity)MessageFactory.Attachment(GetAdaptiveCard(battleGoals, @"Templates\BattleGoal.json")), cancellationToken);
         }
         private async Task<Activity> GiveEventAsync(string message)
         {
@@ -218,22 +191,7 @@ namespace GloomBot.Bots
             }
             else
             {
-                // Get the card (and serialize it)
-                string eventData = JsonConvert.SerializeObject(await GloomhavenDB.GetEvent(cardType, cardNumber));
-
-                // Get the templat
-                string eventTemplate = System.IO.File.ReadAllText(@"Templates\Event.json");
-
-                // Create the AdaptiveCard using an AdaptiveTransformer
-                AdaptiveTransformer transformer = new AdaptiveTransformer();
-                string eventCard = transformer.Transform(eventTemplate, eventData);
-                Attachment adaptiveCard = new Attachment()
-                {
-                    ContentType = "application/vnd.microsoft.card.adaptive",
-                    Content = JsonConvert.DeserializeObject(eventCard)
-                };
-
-                return (Activity)MessageFactory.Attachment(adaptiveCard);
+                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(await GloomhavenDB.GetEvent(cardType, cardNumber), @"Templates\Event.json"));
             }
         }
         private async Task<Activity> GiveEventOptionAsync(string eventType, string cardNumber, string option)
@@ -246,22 +204,40 @@ namespace GloomBot.Bots
             if (option == "B")
                 e.OptionA = e.OptionB;
 
-            // Get the card (and serialize it)
-            string eventData = JsonConvert.SerializeObject(e);
+            return (Activity)MessageFactory.Attachment(GetAdaptiveCard(e, @"Templates\EventResult.json"));
+        }
+        private async Task<Activity> GiveItemAsync(string message)
+        {
+            // Find the number
+            string cardNumber = Regex.Match(message, @"\d+").Value;
 
-            // Get the templat
-            string eventTemplate = System.IO.File.ReadAllText(@"Templates\EventResult.json");
+            if (string.IsNullOrWhiteSpace(cardNumber))
+            {
+                return MessageFactory.Text($"If thou are looking for a specific item, I must know the number!");
+            }
+            else
+            {
+                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(await GloomhavenDB.GetItem(cardNumber), @"Templates\Item.json"));
+            }
+        }
+        private Attachment GetAdaptiveCard(object data, string templateLocation)
+        {
+            // Get the JSON data for the item.
+            string dataJson = JsonConvert.SerializeObject(data);
+
+            // Get the template
+            string templateJson = System.IO.File.ReadAllText(templateLocation);
 
             // Create the AdaptiveCard using an AdaptiveTransformer
             AdaptiveTransformer transformer = new AdaptiveTransformer();
-            string eventCard = transformer.Transform(eventTemplate, eventData);
+            string cardJson = transformer.Transform(templateJson, dataJson);
             Attachment adaptiveCard = new Attachment()
             {
                 ContentType = "application/vnd.microsoft.card.adaptive",
-                Content = JsonConvert.DeserializeObject(eventCard)
+                Content = JsonConvert.DeserializeObject(cardJson)
             };
 
-            return (Activity)MessageFactory.Attachment(adaptiveCard);
+            return adaptiveCard;
         }
     }
 }
