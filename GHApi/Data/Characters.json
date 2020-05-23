@@ -1,6 +1,6 @@
 [
   {
-    "characterNumber": "01",
+    "characterCode": "BR",
     "spoilerFreeName": "Brute",
     "fullName": "Inox Brute",
     "race": "Inox",
@@ -15,10 +15,10 @@
     "isSpoiler": false,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "02",
+    "characterCode": "TI",
     "spoilerFreeName": "Tinkerer",
     "fullName": "Quatryl Tinkerer",
     "race": "Quatryl",
@@ -33,10 +33,10 @@
     "isSpoiler": false,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "03",
+    "characterCode": "SW",
     "spoilerFreeName": "Spellweaver",
     "fullName": "Orchid Spellweaver",
     "race": "Orchid",
@@ -51,10 +51,10 @@
     "isSpoiler": false,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "04",
+    "characterCode": "SC",
     "spoilerFreeName": "Scoundrel",
     "fullName": "Human Scoundrel",
     "race": "Human",
@@ -69,10 +69,10 @@
     "isSpoiler": false,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "05",
+    "characterCode": "CH",
     "spoilerFreeName": "Cragheart",
     "fullName": "Savvas Cragheart",
     "race": "Savvas",
@@ -87,10 +87,10 @@
     "isSpoiler": false,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "06",
+    "characterCode": "MT",
     "spoilerFreeName": "Mindthief",
     "fullName": "Vermling Mindthief",
     "race": "Vermling",
@@ -105,10 +105,10 @@
     "isSpoiler": false,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "07",
+    "characterCode": "SK",
     "spoilerFreeName": "Sun",
     "fullName": "Valrath Sunkeeper",
     "race": "Valrath",
@@ -123,10 +123,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "08",
+    "characterCode": "QM",
     "spoilerFreeName": "Three Spears",
     "fullName": "Valrath Quartermaster",
     "race": "Valrath",
@@ -141,10 +141,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "09",
+    "characterCode": "SU",
     "spoilerFreeName": "Concentric Circles",
     "fullName": "Aesther Summoner",
     "race": "Aesther",
@@ -159,10 +159,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "10",
+    "characterCode": "NS",
     "spoilerFreeName": "Moon/Eclipse",
     "fullName": "Aesther Nightshroud",
     "race": "Aesther",
@@ -177,10 +177,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "11",
+    "characterCode": "PH",
     "spoilerFreeName": "Cthulu",
     "fullName": "Harrower Plagueherald",
     "race": "Harrower",
@@ -195,10 +195,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "12",
+    "characterCode": "BE",
     "spoilerFreeName": "Lightning Bolt",
     "fullName": "Inox Berserker",
     "race": "Inox",
@@ -213,10 +213,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "13",
+    "characterCode": "SS",
     "spoilerFreeName": "Music Note",
     "fullName": "Quatryl Soothsinger",
     "race": "Quatryl",
@@ -231,10 +231,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "14",
+    "characterCode": "DS",
     "spoilerFreeName": "Spiky/Angry Face",
     "fullName": "Orchid Doomstalker",
     "race": "Orchid",
@@ -249,10 +249,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "15",
+    "characterCode": "SB",
     "spoilerFreeName": "Saw",
     "fullName": "Human Sawbones",
     "race": "Human",
@@ -267,10 +267,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "16",
+    "characterCode": "EL",
     "spoilerFreeName": "Triforce",
     "fullName": "Savvas Elementalist",
     "race": "Savvas",
@@ -285,10 +285,10 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   },
   {
-    "characterNumber": "17",
+    "characterCode": "BT",
     "spoilerFreeName": "Two-Mini",
     "fullName": "Vermling Beast Tyrant",
     "race": "Vermling",
@@ -303,6 +303,6 @@
     "isSpoiler": true,
     "isOfficial": true,
     "isExtended": false,
-    "source": "Gloomhaven"
+    "source": "Cephalofair"
   }
 ]

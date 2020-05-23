@@ -5,7 +5,7 @@ namespace GHApi.Models.Context
     public class CharacterEntity
     {
         public int CharacterEntityId { get; set; }
-        public string CharacterNumber { get; set; }
+        public string CharacterCode { get; set; }
         public string SpoilerFreeName { get; set; }
         public string FullName { get; set; }
         public string Race { get; set; }

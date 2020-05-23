@@ -40,7 +40,7 @@ namespace GHApi.Controllers
             var characters = from b in _context.Characters
                              select new Character()
                              {
-                                 CharacterNumber = b.CharacterNumber,
+                                 CharacterCode = b.CharacterCode,
                                  SpoilerFreeName = b.SpoilerFreeName,
                                  FullName = b.FullName,
                                  Race = b.Race,
@@ -64,58 +64,43 @@ namespace GHApi.Controllers
         /// <summary>
         /// Retrieves a specific Character based upon passed character number.
         /// </summary>
-        /// <param name="characterNumber">Character Number</param>
+        /// <param name="characterCode">Character Number</param>
         /// <remarks></remarks>
         /// <returns>
         /// A single Character.
         /// </returns>
         /// <response code = "200">Returns the requested character.</response>
         /// <response code = "404">Character wasn't found.</response>
-        [HttpGet("{characterNumber}")]
-        public async Task<ActionResult<Character>> GetCharacter(string characterNumber)
+        [HttpGet("{characterCode}")]
+        public async Task<ActionResult<Character>> GetCharacter(string characterCode)
         {
+            var character = await _context.Characters.Select(b =>
+                                new Character()
+                                {
+                                    CharacterCode = b.CharacterCode,
+                                    SpoilerFreeName = b.SpoilerFreeName,
+                                    FullName = b.FullName,
+                                    Race = b.Race,
+                                    RaceDescription = b.RaceDescription,
+                                    Class = b.Class,
+                                    ClassDescription = b.ClassDescription,
+                                    HexColor = b.HexColor,
+                                    PortraitHigh = b.PortraitHigh,
+                                    PortraitLow = b.PortraitLow,
+                                    IconHigh = b.IconHigh,
+                                    IconLow = b.IconLow,
+                                    IsSpoiler = b.IsSpoiler,
+                                    IsOfficial = b.IsOfficial,
+                                    IsExtended = b.IsExtended,
+                                    Source = b.Source
+                                }).SingleOrDefaultAsync(b => b.CharacterCode == characterCode);
 
-            // characterNumber should be a two character number formatted with a leading 0.
-            // Reformat as necessary to facilitate the join correctly then continue on if
-            // it is truly an integer.
-            if (int.TryParse(characterNumber, out int i))
-            {
-                // Success! It's an integer.  Now reformat it to include a leading zero.
-                characterNumber = i.ToString("D2");
-
-                var character = await _context.Characters.Select(b =>
-                                 new Character()
-                                 {
-                                     CharacterNumber = b.CharacterNumber,
-                                     SpoilerFreeName = b.SpoilerFreeName,
-                                     FullName = b.FullName,
-                                     Race = b.Race,
-                                     RaceDescription = b.RaceDescription,
-                                     Class = b.Class,
-                                     ClassDescription = b.ClassDescription,
-                                     HexColor = b.HexColor,
-                                     PortraitHigh = b.PortraitHigh,
-                                     PortraitLow = b.PortraitLow,
-                                     IconHigh = b.IconHigh,
-                                     IconLow = b.IconLow,
-                                     IsSpoiler = b.IsSpoiler,
-                                     IsOfficial = b.IsOfficial,
-                                     IsExtended = b.IsExtended,
-                                     Source = b.Source
-                                 }).SingleOrDefaultAsync(b => b.CharacterNumber == characterNumber);
-
-
-                if (character == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(character);
-            }
-            else
+            if (character == null)
             {
                 return NotFound();
             }
+
+            return Ok(character);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Character
     {
-        public string CharacterNumber { get; set; }
+        public string CharacterCode { get; set; }
         public string SpoilerFreeName { get; set; }
         public string FullName { get; set; }
         public string Race { get; set; }
