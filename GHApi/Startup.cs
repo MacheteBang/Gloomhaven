@@ -14,9 +14,6 @@ namespace GHApi
 {
     public class Startup
     {
-        public static string BotAppId { get; private set; }
-        public static string BotAppSecret { get; private set; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -63,45 +60,19 @@ namespace GHApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Added to expose images associated with the data.
-            //app.UseFileServer();
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                if (env.IsDevelopment())
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1 - Dev");
-                }
-                else
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1 - Production");
-                }
-                
-            });
-
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1 - Production"));
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             // Seed the database
             GHApiContext _context = (GHApiContext)app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<GHApiContext>();

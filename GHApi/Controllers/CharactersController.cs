@@ -9,7 +9,7 @@ using GHApi.Models.Context;
 namespace GHApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CharactersController : ControllerBase
     {
