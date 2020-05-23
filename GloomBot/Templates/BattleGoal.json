@@ -21,7 +21,7 @@
               "items": [
                 {
                   "type": "Image",
-                  "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/battlegoal_back.jpg",
+                  "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/battlegoal/battlegoal_back.jpg",
                   "size": "Large"
                 }
               ]
@@ -83,7 +83,7 @@
               "items": [
                 {
                   "type": "Image",
-                  "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/battlegoal_back.jpg",
+                  "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/battlegoal/battlegoal_back.jpg",
                   "size": "Large"
                 }
               ]
