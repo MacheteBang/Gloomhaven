@@ -6,28 +6,24 @@ using Microsoft.Bot.Schema;
 using Microsoft.Bot.Schema.Teams;
 using Microsoft.Bot.Connector;
 using System;
-using Microsoft.Bot.Connector.Authentication;
 using GloomBot.Models.GHApi;
 using GloomBot.Models.GloomhavenDB;
 using System.Text.RegularExpressions;
 using AdaptiveCards.Templating;
+using AdaptiveCards;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Net.Http;
+
 namespace GloomBot.Bots
 {
     public class GloomBot : ActivityHandler
     {
-
-        // Assemble the help string
-        string helpText = "Herest are the commands you can speak unto me!"
-            + "\n* Sayest 'help' to divine mine internal knowledge"
-            + "\n* Sayest 'battle goal' to bestow Battle Goals for thy comrades in battle (mention @user)"
-            + "\n* Sayest '(city or road) (number)' and I will show you a City or Road Event card"
-            + "\n* Sayest '(city or road) (number) option (A or B) and I will give you the result of the requested City event card";
-
+        //-------- Messaging activity --------//
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
-            var welcomeText = $"Huzzah weary traveller! With my oracle like powers, I aim to help thee fight the forces of Gloom!\n{helpText}";
+            var welcomeText = $"Huzzah weary traveller! With my oracle like powers, I aim to help thee fight the forces of Gloom!  If you need help, simply say 'help'!";
             foreach (var member in membersAdded)
             {
                 if (member.Id != turnContext.Activity.Recipient.Id)
@@ -38,158 +34,266 @@ namespace GloomBot.Bots
                 }
             }
         }
-
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
             // Send a typing indicator to let the user know it's working
             Activity[] a = { new Activity("typing"), new Activity() {Type="delay", Value=500 } };
             await turnContext.SendActivitiesAsync(a);
 
-            // Branch based on Card Post Back or User Message
-            if (string.IsNullOrWhiteSpace(turnContext.Activity.Text) && turnContext.Activity.Value != null)
-            { // This is a card response
+            // From the incoming message, get a cleaned dictionary of what the processes below may need.
+            Dictionary<string, object> cleanedMessage = GetCleanedInput((Activity)turnContext.Activity);
 
-                // Get the values in a "parsable" object.
-                JToken token = JToken.Parse(turnContext.Activity.Value.ToString());
+            // Switch based on what the user is asking for
+            switch (cleanedMessage["type"])
+            {
+                case "help":
+                    await turnContext.SendActivityAsync(GiveHelp(), cancellationToken);
+                    break;
+                case "event":
+                    await turnContext.SendActivityAsync(await GiveEventAsync(cleanedMessage), cancellationToken);
+                    break;
+                case "eventOption":
+                    string eventType = cleanedMessage["eventType"].ToString();
+                    string cardNumber = cleanedMessage["cardNumber"].ToString();
+                    string eventOption = cleanedMessage["eventOption"].ToString();
 
+                    Activity newActivity = await GiveEventOptionAsync(eventType, cardNumber, eventOption);
 
-                // Branch based on the value set coming back.
+                    if (turnContext.Activity.ReplyToId != null)
+                    {
+                        newActivity.Id = turnContext.Activity.ReplyToId;
+                        await turnContext.UpdateActivityAsync(newActivity, cancellationToken);
+                    }
+                    else
+                    {
+                        await turnContext.SendActivityAsync(newActivity, cancellationToken);
+                    }
+                    break;
+                case "battleGoalRequest":
+                    await turnContext.SendActivityAsync(GetBattleGoalRequest(cleanedMessage), cancellationToken);
+                    break;
+                case "battleGoal":
+                    await turnContext.SendActivityAsync(await GiveBattleGoalsAsync(cleanedMessage), cancellationToken);
+                    break;
+                case "item":
+                    await turnContext.SendActivityAsync(await GiveItemAsync(""));
+                    break;
+                default:
+                    await turnContext.SendActivityAsync(MessageFactory.Text("I have confusion and cannot help thee with that!  Ask for mine 'help' and I will explain what I can do for thee!"), cancellationToken);
+                    break;
+            }
+        }
+
+        //-------- Helper Functions --------//
+        private Dictionary<string, object> GetCleanedInput(Activity activity)
+        /// <summary>
+        /// Evaluates the incoming activity and pulls all relavent information from it and stores it
+        /// in a dictionary for standard consumption.  Does the work of parsing text or a call from 
+        /// a previously sent card so that the consumer doesn't need to do that work.
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <returns>
+        /// Dictionary<string, object> of all the data that a particular activity needs.  If we 'hit'
+        /// a valid request, the dictionary should always contain a key of "type" which will be
+        /// consumed elsewhere.
+        /// </returns>
+        {
+            // This is what we're manipulating and sending out at the end.
+            Dictionary<string, object> activityDictionary = new Dictionary<string, object>();
+
+            // Add keys containing high level information.
+            activityDictionary.Add("service", new Uri(activity.ServiceUrl));
+            activityDictionary.Add("tenant", new TenantInfo(activity.Conversation.TenantId));
+            activityDictionary.Add("channelId", activity.ChannelId);
+
+            // Convert the activity value to a string
+            string activityValue = activity.Value == null ? "" : activity.Value.ToString();
+
+            // Branch based on whether the activity is from a card (i.e. on the value property) or from
+            // the user requesting something (i.e. on the text property).
+            if (string.IsNullOrWhiteSpace(activity.Text) && activityValue != null)
+            // From a card
+            {
+                // Convert the value to a dictionary-like token.  Assumption is that it's coming
+                // in as JSON.
+                JToken token = JToken.Parse(activityValue);
+                
+                // Create key/value pairs based upon the "cardResponse" key in the value.
                 switch (token["cardResponse"].ToString())
                 {
-                    case "EventOption":
-                        string eventType = token["eventType"].ToString();
-                        string cardNumber = token["cardNumber"].ToString();
-                        string option = token["option"].ToString();
+                    case "event":
+                        // This is a request for an event card.
+                        activityDictionary.Add("type", "event");
+                        activityDictionary.Add("eventType", token["eventType"]);
 
-                        Activity newActivity = (Activity)(await GiveEventOptionAsync(eventType, cardNumber, option));
-                        
-                        if (turnContext.Activity.ReplyToId != null)
-                        {
-                            newActivity.Id = turnContext.Activity.ReplyToId;
-                            await turnContext.UpdateActivityAsync(newActivity, cancellationToken);
-                        }
-                        else
-                        {
-                            await turnContext.SendActivityAsync(newActivity, cancellationToken);
-                        }
+                        // If we have an event number, add it.  Two 'if' statements are required.
+                        if (token["eventNumber"] != null)
+                            if (!string.IsNullOrEmpty(token["eventNumber"].ToString()))
+                                activityDictionary.Add("eventNumber", token["eventNumber"]);
+
+                        break;
+                    case "eventOption":
+                        // This is a request for A/B of an event.
+                        activityDictionary.Add("type", "eventOption");
+                        activityDictionary.Add("eventType", token["eventType"]);
+                        activityDictionary.Add("cardNumber", token["cardNumber"]);
+                        activityDictionary.Add("eventOption", token["option"]);
+                        break;
+                    case "battleGoalRequest":
+                        // This is a request to get the battle goals for the team.
+                        activityDictionary.Add("type", "battleGoalRequest");
+
+                        // If the channel is MS Teams, get a list of the members of the group / channel.
+                        if (activityDictionary["channelId"].ToString() == "msteams")
+                            activityDictionary.Add("battleGoalChoices", GetConversationMembers((Uri)activityDictionary["service"], activity.Conversation.Id));
+                        break;
+                    case "battleGoal":
+                        // This is a request to send battle goals to a selected list of people.
+                        activityDictionary.Add("type", "battleGoal");
+
+                        // Create a list of accounts that were chosen.
+                        List<ChannelAccount> mentionedAccounts = new List<ChannelAccount>();
+
+                        // Add each account ID that was chosen.
+                        foreach (string s in token["playerChoiceSet"].ToString().Split(","))
+                            mentionedAccounts.Add(new ChannelAccount(s));
+
+                        // Add it to the dictionary
+                        activityDictionary.Add("mentionedAccounts", mentionedAccounts);
                         break;
                 }
             }
             else
-            { // This is a user chat.
-
-                // Prep the message for parsing below.
-                string messageText = turnContext.Activity.Text.ToLower();
-
-                if (messageText.Contains("help"))
-                { // User is asking for help.
-                    await turnContext.SendActivityAsync(GiveHelp(), cancellationToken);
-                }
-                else if (messageText.Contains("battlegoal") || messageText.Contains("battle goal"))
-                { // User is asking for Battle Goals.
-                    await turnContext.SendActivityAsync(await GiveBattleGoalsAsync(turnContext, cancellationToken));
-                }
-                else if (messageText.Contains("city") || messageText.Contains("road"))
-                { // User is asking for an event card
-                    await turnContext.SendActivityAsync(await GiveEventAsync(messageText), cancellationToken);
-                }
-                else if (messageText.Contains("item"))
+            // From the user saying something.  Simply looking for specific keywords in what they say.
+            {
+                if (activity.Text.Contains("help"))
+                // user is asking for help
+                    activityDictionary.Add("type", "help");
+                else if (activity.Text.Contains("battlegoal") || activity.Text.Contains("battle goal")) // User is asking for Battle Goals.
+                // user is asking for battle goals.
                 {
-                    await turnContext.SendActivityAsync(await GiveItemAsync(messageText));
+                    // Determine if the user mentioned anyone (aside from Gloombot)
+                    if (activity.GetMentions().Length == 1 && activity.GetMentions()[0].Mentioned.Id == activity.Recipient.Id)
+                    // they didn't mention anyone else, so send them the card that shows them who is in the channel.
+                    {
+                        activityDictionary.Add("type", "battleGoalRequest");
+                        activityDictionary.Add("battleGoalChoices", GetConversationMembers((Uri)activityDictionary["service"], activity.Conversation.Id));
+                    }
+                    else
+                    // they mentioned people, so send them down the path of sending battle goals to those that were mentioned
+                    // as well as the person initiating the chat.
+                    {
+                        activityDictionary.Add("type", "battleGoal");
+
+                        // Create a list of accounts that were mentioned.
+                        List<ChannelAccount> mentionedAccounts = new List<ChannelAccount>();
+
+                        // Add each mentioned account to the outgoign list.
+                        foreach (Mention m in activity.GetMentions())
+                            if (m.Mentioned.Id != activity.Recipient.Id)
+                                mentionedAccounts.Add(m.Mentioned);
+
+                        // Add the person that triggered the chat as well.
+                        mentionedAccounts.Add(activity.From);
+
+                        // Add it to the dictionary
+                        activityDictionary.Add("mentionedAccounts", mentionedAccounts);
+                    }
                 }
-                else
-                // Everything else.
+                else if (activity.Text.Contains("city"))
                 {
-                    await turnContext.SendActivityAsync(MessageFactory.Text("I have confusion and cannot help thee with that!  Ask for mine 'help' and I will explain what I can do for thee!"), cancellationToken);
+                    activityDictionary.Add("type", "event");
+                    activityDictionary.Add("eventType", "city");
+
+                    if (!String.IsNullOrEmpty(Regex.Match(activity.Text, @"\d+").Value))
+                        activityDictionary.Add("cardNumber", Regex.Match(activity.Text, @"\d+").Value);
                 }
+                else if (activity.Text.Contains("road"))
+                {
+                    activityDictionary.Add("type", "event");
+                    activityDictionary.Add("eventType", "road");
+
+                    if (!String.IsNullOrEmpty(Regex.Match(activity.Text, @"\d+").Value))
+                        activityDictionary.Add("cardNumber", Regex.Match(activity.Text, @"\d+").Value);
+                }
+                else if (activity.Text.Contains("item"))
+                    activityDictionary.Add("type", "item");
             }
+            return activityDictionary;
         }
         private Activity GiveHelp()
         {
-            return MessageFactory.Text($"By Merlin's Beard!\n{helpText}");
-
+            return (Activity)MessageFactory.Attachment(GetAdaptiveCard("{}", @"Templates\Help.json"));
         }
-        private async Task<Activity> GiveBattleGoalsAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        private Activity GetBattleGoalRequest(Dictionary<string, object> messageData)
         {
-            // Need to know who is going to get the battle goals.  Assuming it's the sender and
-            // anyone else that is mentioned.
-            string connectedNames = "";
-            List<ChannelAccount> connectedChannelAccounts = new List<ChannelAccount>();
+            // Get the template
+            string battleGoalRequestTemplate = File.ReadAllText(@"Templates\BattleGoalRequest.json");
 
-            // Add the sender
-            connectedNames += turnContext.Activity.From.Name;
-            connectedChannelAccounts.Add(turnContext.Activity.From);
+            // String replace the choice set "variable" with an actual list of choices.
+            string choiceSetJson = JsonConvert.SerializeObject(messageData["battleGoalChoices"]);
+            battleGoalRequestTemplate = battleGoalRequestTemplate.Replace("${battleGoalChoices}", choiceSetJson);
 
-            // Add those mentioned (except this bot)
-            foreach (Mention m in turnContext.Activity.GetMentions())
+            AdaptiveCard battleGoalRequest = AdaptiveCard.FromJson(battleGoalRequestTemplate).Card;
+
+            Attachment result = new Attachment()
             {
-                if (m.Mentioned.Id != turnContext.Activity.Recipient.Id)
-                {
-                    connectedChannelAccounts.Add(m.Mentioned);
-                    connectedNames += $", {m.Mentioned.Name}";
-                }
-            }
+                ContentType = "application/vnd.microsoft.card.adaptive",
+                Content = JsonConvert.DeserializeObject(battleGoalRequest.ToJson())
+            };
 
-            // Get a list of shuffled battle goals.
+            return (Activity)MessageFactory.Attachment(result);
+        }
+        private async Task<Activity> GiveBattleGoalsAsync(Dictionary<string, object> messageData)
+        {
+            // Get a list of shuffled goals and shuffle them.
             List<BattleGoal> battleGoals = await GHApi.GetBattleGoals();
             battleGoals = Utility.ShuffleList(battleGoals);
 
-            if (turnContext.Activity.ChannelId == "msteams")
+            if (messageData["channelId"].ToString() == "msteams")
             {
+                // Create a connection to the tenant.
+                var botConnectorClient = new ConnectorClient((Uri)messageData["service"], Startup.BotCredentials);
 
-                // Send a message in the collected channel accounts.
-                int j = 0;
-                foreach (ChannelAccount c in connectedChannelAccounts)
+                // Loop through the accounts that were mentioned, and send the message.
+                int j = 0; // also loops through the battle goals.
+                foreach (ChannelAccount c in (List<ChannelAccount>)messageData["mentionedAccounts"])
                 {
-                    SendIndividualBattleGoalsAsync(c.Id, turnContext, cancellationToken, new BattleGoal[] { battleGoals[j], battleGoals[j + 1] });
+                    // Create conversation parameter
+                    ConversationParameters conversationParameters = new ConversationParameters()
+                    {
+                        ChannelData = new TeamsChannelData() { Tenant = (TenantInfo)messageData["tenant"] },
+                        Members = new List<ChannelAccount>() { c }
+                    };
+
+                    // Create/get the conversation
+                    var response = await botConnectorClient.Conversations.CreateConversationAsync(conversationParameters);
+
+                    // Send the individual battle goal
+                    await botConnectorClient.Conversations.SendToConversationAsync(response.Id, (Activity)MessageFactory.Attachment(GetAdaptiveCard(new BattleGoal[] { battleGoals[j], battleGoals[j + 1] }, @"Templates\BattleGoal.json")));
+
+                    // increment the counter for the battle goals.
                     j += 2;
                 }
 
                 // Return the initial message.
-                return MessageFactory.Text($"⚔️ The time is nigh to fight the forces of Gloom!  I have bestowed unto thee two goals for this battle. These warriors shall recieve these visions directly: {connectedNames} ⚔️");
+                return MessageFactory.Text($"⚔️ I have sent battle goals to those who need them! ⚔️");
             }
             else
             { // Reply back directly with two battle goals. (duplicated from SendIndividualBattleGoalsAsync)
                 return (Activity)MessageFactory.Attachment(GetAdaptiveCard(new BattleGoal[] { battleGoals[0], battleGoals[1] }, @"Templates\BattleGoal.json"));
-
             }
         }
-        private async void SendIndividualBattleGoalsAsync(string userId, ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken, BattleGoal[] battleGoals)
+        private async Task<Activity> GiveEventAsync(Dictionary<string, object> messageData)
         {
-            // Create a separate connector to send private messages
-            MicrosoftAppCredentials creds = new MicrosoftAppCredentials(Startup.BotAppId, Startup.BotAppSecret);
-            var connector = new ConnectorClient(new Uri(turnContext.Activity.ServiceUrl), creds);
+            string eventType = messageData["eventType"].ToString();
 
-            // Create a channel account
-            ChannelAccount channelAccount = new ChannelAccount(userId);
-
-            // Create conversation parameter
-            ConversationParameters conversationParameters = new ConversationParameters()
-            {
-                ChannelData = new TeamsChannelData() { Tenant = new TenantInfo(turnContext.Activity.Conversation.TenantId) },
-                Members = new List<ChannelAccount>() { channelAccount }
-            };
-
-            // Create/get the conversation
-            var response = await connector.Conversations.CreateConversationAsync(conversationParameters);
-
-            await connector.Conversations.SendToConversationAsync(response.Id, (Activity)MessageFactory.Attachment(GetAdaptiveCard(battleGoals, @"Templates\BattleGoal.json")), cancellationToken);
-        }
-        private async Task<Activity> GiveEventAsync(string message)
-        {
-            // Get the type
-            string cardType = message.Contains("city") ? cardType = "city" : cardType = "road";
-
-            // Find the number
-            string cardNumber = Regex.Match(message, @"\d+").Value;
-
-            if (string.IsNullOrWhiteSpace(cardNumber))
-            {
-                return MessageFactory.Text($"Looking for a {cardType} event, eh? I need to know the number!");
-            }
+            if (!messageData.ContainsKey("eventNumber"))
+                return (Activity)MessageFactory.Attachment(GetAdaptiveCard($"{{\"eventType\":\"{eventType}\"}}", @"Templates\EventRequest.json"));
             else
             {
-                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(await GloomhavenDB.GetEvent(cardType, cardNumber), @"Templates\Event.json"));
+                string eventNumber = messageData["eventNumber"].ToString();
+                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(await GloomhavenDB.GetEvent(eventType, eventNumber), @"Templates\Event.json"));
             }
         }
         private async Task<Activity> GiveEventOptionAsync(string eventType, string cardNumber, string option)
@@ -220,11 +324,16 @@ namespace GloomBot.Bots
         }
         private Attachment GetAdaptiveCard(object data, string templateLocation)
         {
-            // Get the JSON data for the item.
-            string dataJson = JsonConvert.SerializeObject(data);
+
+            string dataJson;
+            // Get the JSON data for the item.  If it's already a string, assume it's JSON straightaway
+            if (data.GetType().ToString() != "System.String")
+                dataJson = JsonConvert.SerializeObject(data);
+            else
+                dataJson = data.ToString();
 
             // Get the template
-            string templateJson = System.IO.File.ReadAllText(templateLocation);
+            string templateJson = File.ReadAllText(templateLocation);
 
             // Create the AdaptiveCard using an AdaptiveTransformer
             AdaptiveCardTemplate template = new AdaptiveCardTemplate(templateJson);
@@ -236,6 +345,23 @@ namespace GloomBot.Bots
             };
 
             return adaptiveCard;
+        }
+        private List<ChoiceItem> GetConversationMembers(Uri service, string conversationId)
+        {
+            // Create a connection to the tenant.
+            var botConnectorClient = new ConnectorClient(service, Startup.BotCredentials);
+            IList<ChannelAccount> members = botConnectorClient.Conversations.GetConversationMembersAsync(conversationId).Result;
+
+            // Get a list of all members that are part of the conversation (assumption is MS teams)
+            List<ChoiceItem> possibleMembers = new List<ChoiceItem>();
+
+            // Add those members to the list to be displayed.
+            foreach (ChannelAccount c in members)
+                possibleMembers.Add(new ChoiceItem() { Title = c.Name, Value = c.Id });
+
+            possibleMembers.Sort();
+
+            return possibleMembers;
         }
     }
 }

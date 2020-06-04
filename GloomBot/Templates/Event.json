@@ -23,7 +23,7 @@
                   "title": "A",
                   "type": "Action.Submit",
                   "data": {
-                    "cardResponse": "EventOption",
+                    "cardResponse": "eventOption",
                     "eventType": "${Type}",
                     "cardNumber": "${Number}",
                     "option": "A"
@@ -45,7 +45,7 @@
                   "type": "Action.Submit",
                   "title": "B",
                   "data": {
-                    "cardResponse": "EventOption",
+                    "cardResponse": "eventOption",
                     "eventType": "${Type}",
                     "cardNumber": "${Number}",
                     "option": "B"

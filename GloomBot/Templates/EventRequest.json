@@ -1,0 +1,60 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/event/${eventType}_front.jpg",
+              "size": "Large"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Need an Event?",
+              "size": "Large"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Give me the number of the ${eventType} event you need.",
+              "wrap": true
+            },
+            {
+              "type": "Input.Number",
+              "placeholder": "Event Number",
+              "min": 1,
+              "max": 100,
+              "id": "eventNumber"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Get Event",
+                  "data": {
+                    "cardResponse": "event",
+                    "eventType": "${eventType}"
+                  }
+                }
+              ],
+              "horizontalAlignment": "Right"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

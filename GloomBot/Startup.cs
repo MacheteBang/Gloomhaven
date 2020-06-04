@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
+using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,8 +10,7 @@ namespace GloomBot
 {
     public class Startup
     {
-        public static string BotAppId { get; private set; }
-        public static string BotAppSecret { get; private set; }
+        public static MicrosoftAppCredentials BotCredentials { get; private set; }
         public static string ApiUrl_BattleGoals { get; private set; }
         public static string GloomHavenDBUrl_Events { get; private set; }
         public static string GloomHavenDBUrl_Items { get; private set; }
@@ -41,8 +41,7 @@ namespace GloomBot
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             // Grab these configuration items for later.
-            BotAppId = Configuration["MicrosoftAppId"];
-            BotAppSecret = Configuration["MicrosoftAppPassword"];
+            BotCredentials = new MicrosoftAppCredentials(Configuration["MicrosoftAppId"], Configuration["MicrosoftAppPassword"]);
             ApiUrl_BattleGoals = Configuration["GHApiUrl_BattleGoals"];
             GloomHavenDBUrl_Events = Configuration["GloomhavenDBUrl_EventCards"];
             GloomHavenDBUrl_Items = Configuration["GloomhavenDBUrl_Items"];
