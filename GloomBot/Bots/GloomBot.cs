@@ -76,7 +76,7 @@ namespace GloomBot.Bots
                     await turnContext.SendActivityAsync(await GiveBattleGoalsAsync(cleanedMessage), cancellationToken);
                     break;
                 case "item":
-                    await turnContext.SendActivityAsync(await GiveItemAsync(""));
+                    await turnContext.SendActivityAsync(await GiveItemAsync(cleanedMessage), cancellationToken);
                     break;
                 default:
                     await turnContext.SendActivityAsync(MessageFactory.Text("I have confusion and cannot help thee with that!  Ask for mine 'help' and I will explain what I can do for thee!"), cancellationToken);
@@ -161,13 +161,22 @@ namespace GloomBot.Bots
                         // Add it to the dictionary
                         activityDictionary.Add("mentionedAccounts", mentionedAccounts);
                         break;
+                    case "item":
+                        activityDictionary.Add("type", "item");
+
+                        // If we have an event number, add it.  Two 'if' statements are required.
+                        if (token["itemNumber"] != null)
+                            if (!string.IsNullOrEmpty(token["itemNumber"].ToString()))
+                                activityDictionary.Add("itemNumber", token["itemNumber"].ToString());
+
+                        break;
                 }
             }
             else
             // From the user saying something.  Simply looking for specific keywords in what they say.
             {
                 if (activity.Text.Contains("help"))
-                // user is asking for help
+                    // user is asking for help
                     activityDictionary.Add("type", "help");
                 else if (activity.Text.Contains("battlegoal") || activity.Text.Contains("battle goal")) // User is asking for Battle Goals.
                 // user is asking for battle goals.
@@ -217,7 +226,12 @@ namespace GloomBot.Bots
                         activityDictionary.Add("cardNumber", Regex.Match(activity.Text, @"\d+").Value);
                 }
                 else if (activity.Text.Contains("item"))
+                {
                     activityDictionary.Add("type", "item");
+
+                    if (!String.IsNullOrEmpty(Regex.Match(activity.Text, @"\d+").Value))
+                        activityDictionary.Add("itemNumber", Regex.Match(activity.Text, @"\d+").Value);
+                }
             }
             return activityDictionary;
         }
@@ -308,19 +322,13 @@ namespace GloomBot.Bots
 
             return (Activity)MessageFactory.Attachment(GetAdaptiveCard(e, @"Templates\EventResult.json"));
         }
-        private async Task<Activity> GiveItemAsync(string message)
+        private async Task<Activity> GiveItemAsync(Dictionary<string, object> messageData)
         {
             // Find the number
-            string cardNumber = Regex.Match(message, @"\d+").Value;
-
-            if (string.IsNullOrWhiteSpace(cardNumber))
-            {
-                return MessageFactory.Text($"If thou are looking for a specific item, I must know the number!");
-            }
+            if (!messageData.ContainsKey("itemNumber"))
+                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(@"", @"Templates\ItemRequest.json"));
             else
-            {
-                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(await GloomhavenDB.GetItem(cardNumber), @"Templates\Item.json"));
-            }
+                return (Activity)MessageFactory.Attachment(GetAdaptiveCard(await GloomhavenDB.GetItem((string)messageData["itemNumber"]), @"Templates\Item.json"));
         }
         private Attachment GetAdaptiveCard(object data, string templateLocation)
         {

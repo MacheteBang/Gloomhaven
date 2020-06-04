@@ -113,6 +113,41 @@
           ]
         }
       ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 35,
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "item",
+                  "data": {
+                    "cardResponse": "item"
+                  }
+                }
+              ]
+            }
+          ],
+          "verticalContentAlignment": "Center"
+        },
+        {
+          "type": "Column",
+          "width": 65,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "By saying 'item', I'll respond with an item.  If you specify the number, I'll get that exact item. If not, I'll give you a chance to tell me which one you want.",
+              "wrap": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

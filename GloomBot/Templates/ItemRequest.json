@@ -1,0 +1,59 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://mmmpizzastorage.blob.core.windows.net/ghapi/item/item_back.jpg",
+              "size": "Large"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Need an Item?",
+              "size": "Large"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Give me the number of the item you need.",
+              "wrap": true
+            },
+            {
+              "type": "Input.Number",
+              "placeholder": "Item Number",
+              "min": 1,
+              "max": 200,
+              "id": "itemNumber"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Get Item",
+                  "data": {
+                    "cardResponse": "item"
+                  }
+                }
+              ],
+              "horizontalAlignment": "Right"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
